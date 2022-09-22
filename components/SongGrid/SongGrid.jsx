@@ -1,4 +1,5 @@
 import React from "react";
+import Song from "./Song/Song";
 
 
 function SongGrid({ songs }) {
@@ -6,17 +7,9 @@ function SongGrid({ songs }) {
   return (
     <div>
       <h1>Song Grid</h1>
-      <div>
-        <button onClick={()=> console.log(songs)}>Click</button>
+      <div className=" flex flex-wrap w-fulln">
         {songs.map((song) => (
-          <div key={song.number}>
-            <h2>{song.title}</h2>
-            <h3>{song.artist}</h3>
-            <img src={song.image} alt={song.title}></img>
-            <audio controls>
-              <source src={song.song} type="audio/mpeg"></source>
-            </audio>
-          </div>
+            <Song song={song}></Song>
         ))} 
       </div>
     </div>
