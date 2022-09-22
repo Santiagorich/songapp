@@ -8,8 +8,8 @@ function SongGrid({ songs }) {
     <div>
       <h1>Song Grid</h1>
       <div className=" flex flex-wrap w-fulln">
-        {songs.map((song) => (
-            <Song song={song}></Song>
+        {songs.map((song,index) => (
+            <Song key={index} song={song}></Song>
         ))} 
       </div>
     </div>

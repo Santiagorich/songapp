@@ -40,6 +40,8 @@ export default async function getSongs(query) {
               .textContent,
             image: song.querySelector(".cover-art > img[class='cover-image']")
               .getAttribute('data-pin-media'),
+            thumbnail: song.querySelector(".cover-art > img[class='cover-image']")
+              .src,
             genre: genre,
             release: release,
             number: song.querySelector(".cover-art > .chart-position")

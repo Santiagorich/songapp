@@ -4,7 +4,6 @@ function Song({ song }) {
   return (
     //set div background to song image
     <div
-      key={song.number}
       style={{
         backgroundImage: `url(${song.image})`,
         backgroundSize: "cover",
