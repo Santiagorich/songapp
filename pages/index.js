@@ -14,18 +14,20 @@ export async function getStaticProps() {
         songs: songs,
       });
     })
-  ).then(() => {
-    console.log(allSongs);
-  });
+  );
   return {
     props: {
-      songs,
+      allSongs,
     },
     revalidate: 120,
   };
 }
 
-export default function Home({ songs }) {
+export default function Home({ allSongs }) {
+  const getSongs = (category) => {
+    const songs = allSongs.filter((song) => song.category === category);
+    return songs[0].songs;
+  };
   return (
     <div>
       <Head>
@@ -40,7 +42,7 @@ export default function Home({ songs }) {
         <span className="text-white font-bold text-4xl ml-10 p-4">Top 100</span>
 
         <div>
-          <SongSwiper songs={songs}></SongSwiper>
+          <SongSwiper songs={getSongs('top-100')}></SongSwiper>
         </div>
       </div>
     </div>
