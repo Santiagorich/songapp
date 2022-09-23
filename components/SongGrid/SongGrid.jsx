@@ -39,11 +39,8 @@ function SongGrid({ songs }) {
       >
         {songChunks.map((chunk, chunkindex) => {
           return (
-            <SwiperSlide>
-              <div
-                key={chunkindex}
-                className=" flex flex-wrap w-full gap-4 justify-center p-4 "
-              >
+            <SwiperSlide key={chunkindex}>
+              <div className=" flex flex-wrap w-full gap-4 justify-center p-4 ">
                 {chunk.map((song, index) => (
                   <Song
                     key={index}
