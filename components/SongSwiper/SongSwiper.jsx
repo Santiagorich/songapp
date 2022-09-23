@@ -1,12 +1,12 @@
 import React from "react";
-import Song from "./Song/Song";
+import Song from "../Song/Song";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Lazy, Virtual, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/lazy";
 
-function SongGrid({ songs }) {
+function SongSwiper({ songs }) {
   var songChunks = [];
   SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
   const [currentlyPlaying, setCurrentlyPlaying] = React.useState(null);
@@ -40,7 +40,7 @@ function SongGrid({ songs }) {
         lazy={true}
         virtual
         followFinger={false}
-        allowTouchMove={false}
+        allowTouchMove={true}
         preloadImages={true}
       >
         {songChunks.map((chunk, chunkindex) => {
@@ -65,4 +65,4 @@ function SongGrid({ songs }) {
   );
 }
 
-export default SongGrid;
+export default SongSwiper;
