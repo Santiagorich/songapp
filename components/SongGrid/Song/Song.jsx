@@ -7,10 +7,10 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       style={{
         width: "300px",
         height: "300px",
-        // backgroundImage: `url(${song.thumbnail})`,
-        // backgroundSize: "cover",
-        // backgroundPosition: "center",
-        // backgroundRepeat: "no-repeat",
+        backgroundImage: `url(${song.thumbnail})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={() => {
@@ -29,8 +29,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         className="absolute z-0"
         objectFit="cover"
         alt={song.title}
-        placeholder="blur"
-        blurDataURL={song.thumbnail}
+        placeholder="empty"
       ></Image>
       <div className="absolute w-full h-full justify-center items-center text-white flex z-20">
         {currentlyPlaying && currentlyPlaying == song.song ? (
