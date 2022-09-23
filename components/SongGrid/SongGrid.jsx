@@ -1,13 +1,14 @@
 import React from "react";
 import Song from "./Song/Song";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, Lazy, Navigation } from "swiper";
+import SwiperCore, { Lazy, Virtual, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/lazy";
 
 function SongGrid({ songs }) {
   var songChunks = [];
+  SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
   const [currentlyPlaying, setCurrentlyPlaying] = React.useState(null);
   const playSong = (song) => {
     if (currentlyPlaying) {
@@ -37,11 +38,11 @@ function SongGrid({ songs }) {
         }}
         navigation={true}
         lazy={true}
-        modules={[Lazy,Keyboard, Navigation]}
+        virtual
       >
         {songChunks.map((chunk, chunkindex) => {
           return (
-            <SwiperSlide key={chunkindex}>
+            <SwiperSlide key={chunk} virtualIndex={chunkindex}>
               <div className=" flex flex-wrap w-full gap-4 justify-center p-4 ">
                 {chunk.map((song, index) => (
                   <Song
