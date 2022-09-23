@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-function Song({ song, playSong,currentlyPlaying }) {
+function Song({ song, playSong, pauseSong, currentlyPlaying }) {
   const audioref = useRef();
   return (
     <div
@@ -15,11 +15,16 @@ function Song({ song, playSong,currentlyPlaying }) {
       className="rounded-2xl relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={() => {
         let audio = audioref.current;
-        playSong(audio);
+        if (currentlyPlaying === audio) {
+          pauseSong(audio);
+        }
+        else {
+          playSong(audio);
+        }
       }}
     >
       <div className="absolute w-full h-full justify-center items-center text-white flex">
-        {(audioref.current && currentlyPlaying == audioref.current) ? (
+        {audioref.current && currentlyPlaying == audioref.current ? (
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +39,7 @@ function Song({ song, playSong,currentlyPlaying }) {
               />
             </svg>
           </div>
-        ):(
+        ) : (
           <div className="opacity-0 group-hover:opacity-100">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +54,7 @@ function Song({ song, playSong,currentlyPlaying }) {
               />
             </svg>
           </div>
-        ) }
+        )}
       </div>
       <div
         className="flex flex-col px-4 py-6 -mt-5 w-full"
@@ -65,7 +70,14 @@ function Song({ song, playSong,currentlyPlaying }) {
         </span>
         <span className="text-white">{song.artist}</span>
       </div>
-      <audio onEnded={()=>{playSong(audioref.current)}} ref={audioref} controls className="hidden">
+      <audio
+        onEnded={() => {
+          pauseSong(audioref.current);
+        }}
+        ref={audioref}
+        controls
+        className="hidden"
+      >
         <source src={song.song} type="audio/mpeg"></source>
       </audio>
     </div>
