@@ -7,10 +7,11 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
     <div
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={() => {
-        let audio = audioref.current;
-        if (currentlyPlaying === audio) {
-          pauseSong(audio);
+        let audio = song.song;
+        if (currentlyPlaying && currentlyPlaying.src == audio) {
+          pauseSong();
         } else {
+          pauseSong();
           playSong(audio);
         }
       }}
@@ -71,16 +72,6 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         </span>
         <span className="text-white z-10">{song.artist}</span>
       </div>
-      <audio
-        onEnded={() => {
-          pauseSong(audioref.current);
-        }}
-        ref={audioref}
-        controls
-        className="hidden"
-      >
-        <source src={song.song} type="audio/mpeg"></source>
-      </audio>
     </div>
   );
 }

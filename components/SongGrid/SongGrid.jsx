@@ -11,18 +11,18 @@ function SongGrid({ songs }) {
   SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
   const [currentlyPlaying, setCurrentlyPlaying] = React.useState(null);
   const playSong = (song) => {
-    if (currentlyPlaying) {
-      currentlyPlaying.pause();
-    }
-    setCurrentlyPlaying(song);
-    song.currentTime = 0;
-    song.play();
+    const audio = new Audio(song);
+    audio.play();
+    setCurrentlyPlaying({
+      src: song,
+      audio: audio,
+    });
   };
-  const pauseSong = (song) => {
-    if (!song.paused) {
-      song.pause();
+  const pauseSong = () => {
+    if (currentlyPlaying) {
+      currentlyPlaying.audio.pause();
+      setCurrentlyPlaying(null);
     }
-    setCurrentlyPlaying(null);
   };
   for (let i = 0; i < songs.length; i += 8) {
     songChunks.push(songs.slice(i, i + 8));
@@ -39,6 +39,8 @@ function SongGrid({ songs }) {
         navigation={true}
         lazy={true}
         virtual
+        followFinger={false}
+        allowTouchMove={false}
       >
         {songChunks.map((chunk, chunkindex) => {
           return (
