@@ -1,29 +1,27 @@
+import Image from "next/image";
 import React, { useRef } from "react";
 
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
   const audioref = useRef();
   return (
     <div
-      style={{
-        backgroundImage: `url(${song.thumbnail})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        width: "250px",
-        height: "250px",
-      }}
-      className="rounded-2xl relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
+      className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={() => {
         let audio = audioref.current;
         if (currentlyPlaying === audio) {
           pauseSong(audio);
-        }
-        else {
+        } else {
           playSong(audio);
         }
       }}
     >
-      <div className="absolute w-full h-full justify-center items-center text-white flex">
+      <Image
+        layout="fill"
+        src={`/api/imageFetcher?url=${encodeURIComponent(song.thumbnail)}`}
+        className="absolute z-0"
+        objectFit="cover"
+      ></Image>
+      <div className="absolute w-full h-full justify-center items-center text-white flex z-20">
         {audioref.current && currentlyPlaying == audioref.current ? (
           <div>
             <svg
@@ -57,18 +55,19 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         )}
       </div>
       <div
-        className="flex flex-col px-4 py-6 -mt-5 w-full"
-        style={{
-          backgroundImage: `url(RedPaint.png)`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
+        className="flex flex-col px-4 py-6 -mt-5 w-full relative"
+        
       >
-        <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42">
+        <Image
+        layout="fill"
+        src={`/RedPaint.png`}
+        className="absolute z-0"
+        objectFit="cover"
+      ></Image>
+        <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
           {song.number}. {song.title}
         </span>
-        <span className="text-white">{song.artist}</span>
+        <span className="text-white z-10">{song.artist}</span>
       </div>
       <audio
         onEnded={() => {
