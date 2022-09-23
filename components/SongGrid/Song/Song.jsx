@@ -4,6 +4,14 @@ import React, { useRef } from "react";
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
   return (
     <div
+      style={{
+        width: "300px",
+        height: "300px",
+        // backgroundImage: `url(${song.thumbnail})`,
+        // backgroundSize: "cover",
+        // backgroundPosition: "center",
+        // backgroundRepeat: "no-repeat",
+      }}
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={() => {
         let audio = song.song;
@@ -17,10 +25,12 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
     >
       <Image
         layout="fill"
-        src={`/api/imageFetcher?url=${encodeURIComponent(song.thumbnail)}`}
+        src={`/api/imageFetcher?url=${encodeURIComponent(song.image)}`}
         className="absolute z-0"
         objectFit="cover"
         alt={song.title}
+        placeholder="blur"
+        blurDataURL={song.thumbnail}
       ></Image>
       <div className="absolute w-full h-full justify-center items-center text-white flex z-20">
         {currentlyPlaying && currentlyPlaying == song.song ? (
@@ -55,17 +65,14 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           </div>
         )}
       </div>
-      <div
-        className="flex flex-col px-4 py-6 -mt-5 w-full relative"
-        
-      >
+      <div className="flex flex-col px-4 py-6 -mt-5 w-full relative">
         <Image
-        layout="fill"
-        src={`/RedPaint.png`}
-        className="absolute z-0"
-        objectFit="cover"
-        alt={song.title}
-      ></Image>
+          layout="fill"
+          src={`/RedPaint.png`}
+          className="absolute z-0"
+          objectFit="cover"
+          alt={song.title}
+        ></Image>
         <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
           {song.number}. {song.title}
         </span>
