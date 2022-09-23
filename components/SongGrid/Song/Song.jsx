@@ -2,7 +2,6 @@ import Image from "next/image";
 import React, { useRef } from "react";
 
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
-  const audioref = useRef();
   return (
     <div
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
@@ -24,7 +23,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         alt={song.title}
       ></Image>
       <div className="absolute w-full h-full justify-center items-center text-white flex z-20">
-        {audioref.current && currentlyPlaying == audioref.current ? (
+        {currentlyPlaying && currentlyPlaying == song.song ? (
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
