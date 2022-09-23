@@ -37,7 +37,6 @@ function SongGrid({ songs }) {
           enabled: true,
         }}
         navigation={true}
-        lazy={true}
         virtual
         followFinger={false}
         allowTouchMove={false}
