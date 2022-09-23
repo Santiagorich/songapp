@@ -20,6 +20,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         src={`/api/imageFetcher?url=${encodeURIComponent(song.thumbnail)}`}
         className="absolute z-0"
         objectFit="cover"
+        alt={song.title}
       ></Image>
       <div className="absolute w-full h-full justify-center items-center text-white flex z-20">
         {audioref.current && currentlyPlaying == audioref.current ? (
@@ -63,6 +64,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         src={`/RedPaint.png`}
         className="absolute z-0"
         objectFit="cover"
+        alt={song.title}
       ></Image>
         <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
           {song.number}. {song.title}

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Header from "../components/Header";
 import SongGrid from "../components/SongGrid/SongGrid";
 import getSongs from "../utils/getSongs";
@@ -15,6 +16,9 @@ export async function getStaticProps() {
 export default function Home({ songs }) {
   return (
     <div>
+      <Head>
+        <title>Top 100 Songs</title>
+      </Head>
       <Header></Header>
       <div className="mx-12 my-8">
         <span className="text-white font-bold text-4xl ml-10 p-4">Top 100</span>

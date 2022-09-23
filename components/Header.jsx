@@ -24,7 +24,7 @@ function Header() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6 text-gray-500"
+              className="w-6 h-6 text-gray-300"
             >
               <path
                 strokeLinecap="round"
@@ -32,11 +32,11 @@ function Header() {
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
               />
             </svg>
-            <span className="text-gray-500 font-bold">Search</span>
+            <span className="text-gray-300 font-bold">Search</span>
           </div>
           <nav className="hidden space-x-10 md:flex">
             <Link href="/AdminPage">
-              <a className="text-base font-medium text-gray-500 hover:text-white">
+              <a className="text-base font-medium text-gray-300 hover:text-white">
                 Admin Page
               </a>
             </Link>
