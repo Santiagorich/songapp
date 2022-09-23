@@ -41,6 +41,7 @@ function SongGrid({ songs }) {
         virtual
         followFinger={false}
         allowTouchMove={false}
+        preloadImages={true}
       >
         {songChunks.map((chunk, chunkindex) => {
           return (
