@@ -18,6 +18,7 @@ export default function Home({ songs }) {
     <div>
       <Head>
         <title>Top 100 Songs</title>
+        <meta name="description" content="See what songs are popular right now!" />
       </Head>
       <Header></Header>
       <div className="mx-12 my-8">
