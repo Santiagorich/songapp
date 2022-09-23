@@ -5,7 +5,7 @@ import getSongs from "../utils/getSongs";
 import { categories } from "../constants/categories";
 export async function getStaticProps() {
   const allSongs = [];
-  Promise.all(
+  await Promise.all(
     categories.map(async (category) => {
       const songs = await getSongs(category.category);
       allSongs.push({
@@ -16,13 +16,13 @@ export async function getStaticProps() {
     })
   ).then(() => {
     console.log(allSongs);
-    return {
-      props: {
-        songs,
-      },
-      revalidate: 120,
-    };
   });
+  return {
+    props: {
+      songs,
+    },
+    revalidate: 120,
+  };
 }
 
 export default function Home({ songs }) {

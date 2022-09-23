@@ -27,7 +27,6 @@ function SongSwiper({ songs }) {
   for (let i = 0; i < songs.length; i += 8) {
     songChunks.push(songs.slice(i, i + 8));
   }
-  console.log(songChunks);
   return (
     <div>
       <Swiper
