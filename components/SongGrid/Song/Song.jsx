@@ -65,7 +65,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-72">
+        <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42">
           {song.number}. {song.title}
         </span>
         <span className="text-white">{song.artist}</span>
