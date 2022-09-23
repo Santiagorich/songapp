@@ -1,9 +1,10 @@
 import React from "react";
 import Song from "./Song/Song";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, Navigation } from "swiper";
+import { Keyboard, Lazy, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/lazy";
 
 function SongGrid({ songs }) {
   var songChunks = [];
@@ -35,7 +36,8 @@ function SongGrid({ songs }) {
           enabled: true,
         }}
         navigation={true}
-        modules={[Keyboard, Navigation]}
+        lazy={true}
+        modules={[Lazy,Keyboard, Navigation]}
       >
         {songChunks.map((chunk, chunkindex) => {
           return (
