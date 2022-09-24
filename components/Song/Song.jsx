@@ -97,6 +97,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         className="absolute bottom-3 left-3"
         aria-label={song.title + " - " + song.artist}
         target="_blank"
+        rel="noreferrer"
         href={`https://music.youtube.com/search?q=${encodeURI(
           song.title + " - " + song.artist
         )}`}
