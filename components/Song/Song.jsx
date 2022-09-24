@@ -13,7 +13,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         backgroundRepeat: "no-repeat",
       }}
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
-      onClick={() => {
+      onClick={(e) => {
         let audio = song.song;
         if (currentlyPlaying && currentlyPlaying.src == audio) {
           pauseSong();
@@ -32,7 +32,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         alt={song.title}
         placeholder="empty"
       ></Image>
-      <div className="absolute w-full h-full justify-center items-center text-white flex z-20">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center text-white flex z-20">
         {currentlyPlaying && currentlyPlaying.src == song.song ? (
           <div>
             <svg
@@ -65,11 +65,28 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           </div>
         )}
       </div>
+
+      <div className="flex flex-col px-4 py-6 -mt-5 w-full relative">
+        <Image
+          layout="fill"
+          src={`/RedPaint.png`}
+          className="absolute z-0"
+          objectFit="cover"
+          alt={song.title}
+        ></Image>
+        <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
+          {song.number}. {song.title}
+        </span>
+        <span className="text-white z-10">{song.artist}</span>
+      </div>
       <a
+        className="absolute bottom-3 left-3"
         aria-label={song.title + " - " + song.artist}
-        href={`https://music.youtube.com/search?q=${encodeURI(song.title + " - " + song.artist)}`}
+        href={`https://music.youtube.com/search?q=${encodeURI(
+          song.title + " - " + song.artist
+        )}`}
       >
-        <div className="absolute bottom-3 left-3">
+        <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="80"
@@ -94,19 +111,6 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           </svg>
         </div>
       </a>
-      <div className="flex flex-col px-4 py-6 -mt-5 w-full relative">
-        <Image
-          layout="fill"
-          src={`/RedPaint.png`}
-          className="absolute z-0"
-          objectFit="cover"
-          alt={song.title}
-        ></Image>
-        <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
-          {song.number}. {song.title}
-        </span>
-        <span className="text-white z-10">{song.artist}</span>
-      </div>
     </div>
   );
 }
