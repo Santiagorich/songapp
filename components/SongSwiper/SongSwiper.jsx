@@ -6,24 +6,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/lazy";
 
-function SongSwiper({ songs }) {
+function SongSwiper({ songs,currentlyPlaying,playSong,pauseSong }) {
   var songChunks = [];
   SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
-  const [currentlyPlaying, setCurrentlyPlaying] = React.useState(null);
-  const playSong = (song) => {
-    const audio = new Audio(song);
-    audio.play();
-    setCurrentlyPlaying({
-      src: song,
-      audio: audio,
-    });
-  };
-  const pauseSong = () => {
-    if (currentlyPlaying) {
-      currentlyPlaying.audio.pause();
-      setCurrentlyPlaying(null);
-    }
-  };
+
   for (let i = 0; i < songs.length; i += 8) {
     songChunks.push(songs.slice(i, i + 8));
   }
@@ -38,7 +24,7 @@ function SongSwiper({ songs }) {
         navigation={true}
         lazy={true}
         virtual
-        followFinger={false}
+        followFinger={true}
         allowTouchMove={true}
         preloadImages={true}
       >

@@ -1,30 +1,8 @@
 const fetch = require("node-fetch");
 const jsdom = require("jsdom");
+import { categories } from "../constants/categories";
 
-export default async function getSongs(query) {
-  const categories = [
-    { category: "top-100", link: "top-100-songs.php" },
-    { category: "alternative", link: "top-alternative-songs.php" },
-    { category: "bluegrass", link: "top-bluegrass-songs.php" },
-    { category: "blues", link: "top-blues-songs.php" },
-    { category: "christian", link: "top-christian-gospel-songs.php" },
-    { category: "country", link: "top-country-songs.php" },
-    { category: "dance", link: "top-dance-songs.php" },
-    { category: "electronic", link: "top-electronic-songs.php" },
-    { category: "heavy-metal", link: "top-heavy-metal-songs.php" },
-    { category: "indie-rock", link: "top-indie-songs.php" },
-    { category: "jazz", link: "top-jazz-songs.php" },
-    { category: "k-pop", link: "top-kpop-songs.php" },
-    { category: "kids", link: "top-kids-songs.php" },
-    { category: "latin", link: "top-latin-songs.php" },
-    { category: "pop", link: "top-pop-songs.php" },
-    { category: "soul", link: "top-soul-songs.php" },
-    { category: "rap", link: "top-rap-songs.php" },
-    { category: "reggae", link: "top-reggae-songs.php" },
-    { category: "reggaeton", link: "top-reggaeton-songs.php" },
-    { category: "rock", link: "top-rock-songs.php" },
-    { category: "soundtrack", link: "top-soundtrack-songs.php" },
-  ];
+export const getSongs = async (query) => {
   var url = "";
   categories.forEach((category) => {
     if (category.category === query) {
