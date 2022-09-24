@@ -80,8 +80,12 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         <span className="text-white z-10">{song.artist}</span>
       </div>
       <a
+        onClick={(e)=>{
+          e.stopPropagation();
+        }}
         className="absolute bottom-3 left-3"
         aria-label={song.title + " - " + song.artist}
+        target="_blank"
         href={`https://music.youtube.com/search?q=${encodeURI(
           song.title + " - " + song.artist
         )}`}
