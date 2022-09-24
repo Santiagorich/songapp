@@ -66,6 +66,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         )}
       </div>
       <a
+        aria-label={song.title + " - " + song.artist}
         href={`https://music.youtube.com/search?q=${encodeURI(song.title + " - " + song.artist)}`}
       >
         <div className="absolute bottom-3 left-3">
