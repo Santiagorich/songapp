@@ -5,8 +5,10 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
   const ytmusicref =  useCallback(async node => {
     if (node !== null) {
       fetch('/api/ytmusic?query=' + song.title + ' ' + song.artist).then
-      (response => response.json()).then(data => {
+      (response => response.text()).then(data => {
       node.href = 'https://music.youtube.com/watch?v=' + data;
+      console.log(data);
+      console.log(node.href);
       });
     }
   }, []);
