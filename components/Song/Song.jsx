@@ -4,9 +4,10 @@ import React, { useCallback, useEffect, useRef } from "react";
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
   const ytmusicref =  useCallback(async node => {
     if (node !== null) {
-      const ytmusic = await fetch('/api/ytmusic?query=' + song.title + ' ' + song.artist);
-      const data = await ytmusic.text();
+      fetch('/api/ytmusic?query=' + song.title + ' ' + song.artist).then
+      (response => response.json()).then(data => {
       node.href = 'https://music.youtube.com/watch?v=' + data;
+      });
     }
   }, []);
 
