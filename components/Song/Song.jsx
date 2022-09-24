@@ -1,7 +1,16 @@
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
+  const ytmusicref =  useCallback(async node => {
+    if (node !== null) {
+      const ytmusic = await fetch('/api/ytmusic?query=' + song.title + ' ' + song.artist);
+      const data = await ytmusic.text();
+      node.href = 'https://music.youtube.com/watch?v=' + data;
+    }
+  }, []);
+
+
   return (
     <div
       style={{
@@ -80,7 +89,8 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         <span className="text-white z-10">{song.artist}</span>
       </div>
       <a
-        onClick={(e)=>{
+        ref={ytmusicref}
+        onClick={(e) => {
           e.stopPropagation();
         }}
         className="absolute bottom-3 left-3"

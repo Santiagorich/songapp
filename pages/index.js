@@ -5,7 +5,9 @@ import { getSongs } from "../utils/getSongs";
 import { categories } from "../constants/categories";
 import React, { useEffect } from "react";
 
+
 export async function getStaticProps() {
+
   const preload = {
     name: "Top 100",
     category: "top-100",
