@@ -17,8 +17,8 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
   return (
     <div
       style={{
-        width: "300px",
-        height: "300px",
+        width: "18.75em",
+        height: "18.75em",
         backgroundImage: `url(${song.thumbnail})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
