@@ -18,7 +18,7 @@ function Header() {
               </a>
             </Link>
           </div>
-          <div className="flex flex-row flex-1 gap-2 ">
+          <div className="flex flex-row flex-1 gap-2 w-max ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
