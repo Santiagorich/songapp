@@ -85,6 +85,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           className="absolute z-0"
           objectFit="cover"
           alt={song.title}
+          loading="eager"
         ></Image>
         <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
           {song.number}. {song.title}
