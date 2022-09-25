@@ -72,7 +72,7 @@ export default function Home({ preload }) {
       <Header></Header>
 
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
-        <div className="flex flex-row gap-6 p-4 overflow-hidden">
+        <div className="flex flex-row gap-6 p-4 overflow-hidden whitespace-nowrap">
           {categories.map((category, index) => (
             <span
               key={index}
