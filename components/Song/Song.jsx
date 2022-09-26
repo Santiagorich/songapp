@@ -1,18 +1,20 @@
 import Image from "next/image";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
-  const ytmusicref =  useCallback(async node => {
-    if (node !== null) {
-      fetch('/api/ytmusic?query=' + song.title + ' ' + song.artist).then
-      (response => response.text()).then(data => {
-      node.href = 'https://music.youtube.com/watch?v=' + data;
-      console.log(data);
-      console.log(node.href);
+  const [ytLink, setYtLink] = React.useState();
+  useEffect(() => {
+    setYtLink(
+      `https://music.youtube.com/search?q=${encodeURI(
+        song.title + " - " + song.artist
+      )}`
+    );
+    fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
+      .then((response) => response.text())
+      .then((data) => {
+        setYtLink("https://music.youtube.com/watch?v=" + data);
       });
-    }
-  }, []);
-
+  }, [song]);
 
   return (
     <div
@@ -93,7 +95,6 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         <span className="text-white z-10">{song.artist}</span>
       </div>
       <a
-        ref={ytmusicref}
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -101,9 +102,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         aria-label={song.title + " - " + song.artist}
         target="_blank"
         rel="noreferrer"
-        href={`https://music.youtube.com/search?q=${encodeURI(
-          song.title + " - " + song.artist
-        )}`}
+        href={ytLink}
       >
         <div>
           <svg
