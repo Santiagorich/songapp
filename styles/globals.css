@@ -24,3 +24,8 @@ body {
 .ytmusic {
     filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
 }
+
+.fader {
+    mask-image: linear-gradient(to right, black calc(100% - 100px), transparent 100%);
+    mask-image: linear-gradient(to left, black calc(100% - 100px), transparent 100%);
+}

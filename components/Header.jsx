@@ -25,7 +25,7 @@ function Header() {
           <div className="flex flex-row flex-1 gap-2 w-max "></div>
           <a
             href="https://github.com/Santiagorich"
-            className="flex flex-row gap-4"
+            className="flex flex-row gap-4 select-none"
           >
             <svg viewBox="0 0 128 128" className="w-6 h-6 text-white">
               <g fill="#fff">
