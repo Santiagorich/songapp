@@ -4,10 +4,9 @@ import SongSwiper from "../components/SongSwiper/SongSwiper";
 import { getSongs } from "../utils/getSongs";
 import { categories } from "../constants/categories";
 import React, { useEffect } from "react";
-
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export async function getStaticProps() {
-
   const preload = {
     name: "Top 100",
     category: "top-100",
@@ -72,18 +71,34 @@ export default function Home({ preload }) {
       <Header></Header>
 
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
-        <div className="flex flex-row gap-6 p-4 overflow-hidden whitespace-nowrap">
-          {categories.map((category, index) => (
-            <span
-              key={index}
-              className={`${(currentCategory.category==category.category)?`font-bold text-white`:`text-gray-500`} text-2xl flex-shrink-0 cursor-pointer`}
-              onClick={() => {
-                changeCategory(category.category);
-              }}
-            >
-              {category.name}
-            </span>
-          ))}
+        <div className="flex flex-row px-6 py-2 overflow-hidden whitespace-nowrap">
+          <Swiper
+            slidesPerView={5}
+            spaceBetween={0}
+            keyboard={{
+              enabled: true,
+            }}
+            followFinger={true}
+            allowTouchMove={true}
+          >
+            {categories.map((category, index) => (
+              <SwiperSlide key={index}>
+                <span
+                  key={index}
+                  className={`${
+                    currentCategory.category == category.category
+                      ? `font-bold text-white`
+                      : `text-gray-500`
+                  } text-2xl cursor-pointer`}
+                  onClick={() => {
+                    changeCategory(category.category);
+                  }}
+                >
+                  {category.name}
+                </span>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         <div>
