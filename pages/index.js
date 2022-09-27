@@ -75,7 +75,7 @@ export default function Home({ preload }) {
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
         <div className="flex flex-row px-6 py-2 overflow-hidden whitespace-nowrap relative fader select-none">
           <Swiper
-            slidesPerView={5}
+            slidesPerView={1}
             spaceBetween={0}
             keyboard={{
               enabled: true,
