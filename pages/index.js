@@ -80,11 +80,12 @@ export default function Home({ preload }) {
             keyboard={{
               enabled: true,
             }}
+            navigation={true}
             followFinger={true}
             allowTouchMove={true}
           >
             {categories.map((category, index) => (
-              <SwiperSlide key={index}>
+                <SwiperSlide key={index} className="flex justify-center">
                 <span
                   key={index}
                   className={`${
