@@ -9,3 +9,12 @@ NextJS,React,TailwindCSS and Vercel for hosting
 # Extras
 
 SSR + Lazy loading techniques to improve Lighthouse score and UX
+
+# How to use 
+
+1. Clone it
+`git clone https://github.com/Santiagorich/songapp.git && cd songapp`
+
+2. Run it
+`npm run dev`
+
