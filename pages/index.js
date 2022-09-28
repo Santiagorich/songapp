@@ -5,6 +5,7 @@ import { getSongs } from "../utils/getSongs";
 import { categories } from "../constants/categories";
 import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useMediaQuery } from "react-responsive";
 
 export async function getStaticProps() {
   const preload = {
@@ -24,6 +25,7 @@ export default function Home({ preload }) {
   const [currentlyPlaying, setCurrentlyPlaying] = React.useState(null);
   const [currentCategory, setCurrentCategory] = React.useState(preload);
   const [volume, setVolume] = React.useState(1);
+  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
   const playSong = (song) => {
     const audio = new Audio(song);
     audio.play();
@@ -56,11 +58,13 @@ export default function Home({ preload }) {
     }
     return data;
   };
+
   useEffect(() => {
     categories.map((category) => {
       fetchSongs(category.category);
     });
   }, []);
+  
   return (
     <div>
       <Head>
@@ -75,7 +79,7 @@ export default function Home({ preload }) {
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
         <div className="flex flex-row px-6 py-2 overflow-hidden whitespace-nowrap relative fader select-none">
           <Swiper
-            slidesPerView={4}
+            slidesPerView={isMobile ? 1 : 4}
             spaceBetween={0}
             keyboard={{
               enabled: true,
