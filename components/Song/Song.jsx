@@ -1,8 +1,8 @@
 import Image from "next/image";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
-  const [ytLink, setYtLink] = React.useState();
+  const [ytLink, setYtLink] = useState();
   useEffect(() => {
     setYtLink(
       `https://music.youtube.com/search?q=${encodeURI(

@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import SongSwiper from "../components/SongSwiper/SongSwiper";
 import { getSongs } from "../utils/getSongs";
 import { categories } from "../constants/categories";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useMediaQuery } from "react-responsive";
 
@@ -22,9 +22,9 @@ export async function getStaticProps() {
 }
 
 export default function Home({ preload }) {
-  const [currentlyPlaying, setCurrentlyPlaying] = React.useState(null);
-  const [currentCategory, setCurrentCategory] = React.useState(preload);
-  const [volume, setVolume] = React.useState(1);
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
+  const [currentCategory, setCurrentCategory] = useState(preload);
+  const [volume, setVolume] = useState(1);
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
   const playSong = (song) => {
     const audio = new Audio(song);
