@@ -4,7 +4,7 @@ App that displays trending music at the moment, always updated and it needs to b
 
 # Tech
 
-NextJS,React,TailwindCSS
+NextJS,React,TailwindCSS and Vercel for hosting
 
 # Extras
 
