@@ -2,6 +2,8 @@
 
 App that displays trending music at the moment, always updated and it needs to be blazingly fast
 
+Move quickly and test that speed out!
+
 # Tech
 
 NextJS,React,TailwindCSS and Vercel for hosting
