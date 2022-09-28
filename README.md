@@ -4,6 +4,8 @@ App that displays trending music at the moment, always updated and it needs to b
 
 Move quickly and test that speed out!
 
+PD: I like how it looks with fullscreen!
+
 # Tech
 
 NextJS,React,TailwindCSS and Vercel for hosting
