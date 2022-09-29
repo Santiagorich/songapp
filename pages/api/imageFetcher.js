@@ -46,7 +46,7 @@ export default async (req, res) => {
       .slice(-3)
       .join("/")
       .replace(/[^a-z0-9]/gi, "_")
-      .toLowerCase();
+      // .toLowerCase();
   } else {
     // let localPath = path.resolve(".", `${url}`);
     let localPath = path.join(process.cwd(), `${url}`);
