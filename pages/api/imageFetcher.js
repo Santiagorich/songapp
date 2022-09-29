@@ -4,7 +4,7 @@ const fs = require("fs");
 
 function Optimize(
   buffer,
-  abspath,
+  abspath = null,
   format = "jpeg",
   imageFit = "fill",
   width = null,
@@ -22,7 +22,9 @@ function Optimize(
   const image = resized
     .toFormat(format, { quality: quality })
     .withMetadata()
-    .toFile(`${abspath}.${format}`);
+  if (abspath) {
+    return image.toFile(`${abspath}.${format}`);
+  }
   return image;
 }
 
@@ -46,7 +48,7 @@ export default async (req, res) => {
       .slice(-3)
       .join("/")
       .replace(/[^a-z0-9]/gi, "_")
-      // .toLowerCase();
+      .toLowerCase();
   } else {
     // let localPath = path.resolve(".", `${url}`);
     let localPath = path.join(process.cwd(), `${url}`);
