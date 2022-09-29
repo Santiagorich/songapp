@@ -97,6 +97,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       <a
         onClick={(e) => {
           e.stopPropagation();
+          pauseSong();
         }}
         className="absolute bottom-3 left-3"
         aria-label={song.title + " - " + song.artist}
