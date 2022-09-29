@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "firebase": "^9.10.0",
     "jsdom": "^20.0.0",
+    "mime-types": "^2.1.35",
     "next": "12.3.1",
     "node-fetch": "^2.6.7",
     "node-youtube-music": "^0.7.0",
@@ -20,6 +21,7 @@
     "react-redux": "^8.0.4",
     "react-responsive": "^9.0.0",
     "redux": "^4.2.0",
+    "sharp": "^0.31.0",
     "swiper": "^8.4.2"
   },
   "devDependencies": {
