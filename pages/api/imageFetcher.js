@@ -9,7 +9,7 @@ function Optimize(
   imageFit = "fill",
   width = null,
   height = null,
-  quality = 80
+  quality = 50
 ) {
   const resizeOptions = {
     fit: imageFit,
@@ -19,10 +19,7 @@ function Optimize(
       ? sharp(buffer).resize(width, height, resizeOptions)
       : sharp(buffer);
 
-  const image = resized
-    .toFormat(format)
-    .webp({ force: true, quality: quality, nearLossless: true })
-    .withMetadata();
+  const image = resized.toFormat(format, { force:true, quality: quality,nearLossless:true }).withMetadata();
   if (abspath) {
     return image.toFile(`${abspath}.${format}`);
   }
@@ -41,7 +38,7 @@ export default async (req, res) => {
   let buffer = null;
   let filePath = ``;
   let resbuffer = null;
-
+  
   if (isRemote) {
     result = await fetch(url);
     filename = url
@@ -51,12 +48,12 @@ export default async (req, res) => {
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
   } else {
-    let baseurl = "http://localhost:3000/";
-    if (process.env.VERCEL_URL) {
-      baseurl = "https://" + process.env.VERCEL_URL + "/";
+    let baseurl = "http://localhost:3000/"
+    if(process.env.VERCEL_URL){
+      baseurl = "https://"+process.env.VERCEL_URL+"/"
     }
     result = await fetch(`${baseurl}/${url}`);
-
+    
     filename = path.basename(url);
   }
   buffer = await result.buffer();
