@@ -72,6 +72,9 @@ export default function Home({ preload }) {
   const fetchSongs = async (category) => {
     const res = await fetch(`/api/songs?query=${category}`);
     const data = await res.json();
+    data.forEach((song) => {
+      fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`)
+    });
     if (data.error) {
       return [];
     }
