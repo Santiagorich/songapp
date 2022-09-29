@@ -51,9 +51,8 @@ export default async (req, res) => {
       .toLowerCase();
   } else {
     // let localPath = path.resolve(".", `${url}`);
-    let localPath = path.join(process.cwd(), `${url}`);
-    filename = path.basename(localPath);
-    buffer = fs.readFileSync(localPath);
+    filename = path.basename(url);
+    buffer = fs.readFileSync(url);
   }
   res.setHeader("Cache-control", "public, max-age=86400, must-revalidate");
 
