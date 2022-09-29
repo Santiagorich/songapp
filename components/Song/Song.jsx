@@ -84,7 +84,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       <div className="flex flex-col px-4 py-6 -mt-5 w-full relative">
         <Image
           layout="fill"
-          src={`/api/imageFetcher?url=RedPaint.png&type=original`}
+          src={`/api/imageFetcher?url=/RedPaint.png&type=original`}
           className="absolute z-0"
           objectFit="cover"
           alt={song.title}
