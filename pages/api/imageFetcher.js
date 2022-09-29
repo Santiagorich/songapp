@@ -48,7 +48,7 @@ export default async (req, res) => {
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
   } else {
-    let baseurl = "https://localhost:3000/"
+    let baseurl = "http://localhost:3000/"
     if(process.env.VERCEL_URL){
       baseurl = "https://"+process.env.VERCEL_URL+"/"
     }
