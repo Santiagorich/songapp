@@ -7,19 +7,19 @@ function Optimize(
   abspath,
   format = "jpeg",
   imageFit = "fill",
-  width = 170,
-  height = 170,
+  width = null,
+  height = null,
   quality = 80
 ) {
   const resizeOptions = {
     fit: imageFit,
   };
-  const resized = sharp(buffer).resize(width, height, resizeOptions);
+  const resized = (width && height) ? sharp(buffer).resize(width, height, resizeOptions) : sharp(buffer);
 
   const image = resized
-    .toFormat("webp", { quality: quality })
+    .toFormat(format, { quality: quality })
     .withMetadata()
-    .toFile(abspath + ".webp");
+    .toFile(`${abspath}.${format}`);
   return image;
 }
 
@@ -100,7 +100,26 @@ export default async (req, res) => {
         readStream.pipe(res);
       }
       break;
-      
+      case "original":
+        filePath = path.join(process.cwd(), `/public/og/${filename}`);
+        console.log("original", filePath);
+        if (fs.existsSync(`${filePath}.webp`)) {
+          var readStream = fs.createReadStream(`${filePath}.webp`);
+          res.setHeader("Content-Type", "image/webp");
+          res.status(200);
+          readStream.pipe(res);
+        } else {
+          await Optimize(
+            buffer,
+            filePath,
+            "webp",
+            "cover",
+          );
+          var readStream = fs.createReadStream(`${filePath}.webp`);
+          res.setHeader("Content-Type", "image/webp");
+          res.status(200);
+          readStream.pipe(res);
+        }
     default:
       break;
   }

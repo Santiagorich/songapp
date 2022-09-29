@@ -44,6 +44,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         objectFit="cover"
         alt={song.title}
         placeholder="empty"
+        lazy="true"
       ></Image> 
 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center text-white flex z-20">
@@ -83,7 +84,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       <div className="flex flex-col px-4 py-6 -mt-5 w-full relative">
         <Image
           layout="fill"
-          src={`/api/imageFetcher?url=./public/RedPaint.png&type=cover`}
+          src={`/api/imageFetcher?url=./public/RedPaint.png&type=original`}
           className="absolute z-0"
           objectFit="cover"
           alt={song.title}
