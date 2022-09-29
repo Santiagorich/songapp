@@ -37,15 +37,15 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         }
       }}
     >
-      {/* <Image
+       <Image
         layout="fill"
-        //src={`/api/imageFetcher?url=${encodeURIComponent(song.image)}`}
-        src={song.image}
+        src={`/api/imageFetcher?url=${encodeURIComponent(song.image)}&type=cover`}
         className="absolute z-0"
         objectFit="cover"
         alt={song.title}
         placeholder="empty"
-      ></Image> */}
+      ></Image> 
+
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center text-white flex z-20">
         {currentlyPlaying && currentlyPlaying.src == song.song ? (
           <div>
@@ -81,14 +81,15 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       </div>
 
       <div className="flex flex-col px-4 py-6 -mt-5 w-full relative">
-        {/* <Image
+        <Image
           layout="fill"
-          src={`/RedPaint.png`}
+          src={`/api/imageFetcher?url=./public/RedPaint.png&type=cover`}
           className="absolute z-0"
           objectFit="cover"
           alt={song.title}
           loading="eager"
-        ></Image> */}
+        ></Image> 
+
         <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
           {song.number}. {song.title}
         </span>
