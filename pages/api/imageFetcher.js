@@ -14,7 +14,10 @@ function Optimize(
   const resizeOptions = {
     fit: imageFit,
   };
-  const resized = (width && height) ? sharp(buffer).resize(width, height, resizeOptions) : sharp(buffer);
+  const resized =
+    width && height
+      ? sharp(buffer).resize(width, height, resizeOptions)
+      : sharp(buffer);
 
   const image = resized
     .toFormat(format, { quality: quality })
@@ -24,7 +27,7 @@ function Optimize(
 }
 
 export default async (req, res) => {
-
+  const useBuffer = true; //Vercel won't save files to disk, so we need to use buffers
   const pattern = new RegExp(
     /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
   );
@@ -34,6 +37,7 @@ export default async (req, res) => {
   let result = null;
   let buffer = null;
   let filePath = ``;
+  let resbuffer = null;
   if (isRemote) {
     result = await fetch(url);
     buffer = await result.buffer();
@@ -43,64 +47,64 @@ export default async (req, res) => {
       .join("/")
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
-    console.log("remote", filename);
   } else {
     // let localPath = path.resolve(".", `${url}`);
     let localPath = path.join(process.cwd(), `${url}`);
     filename = path.basename(localPath);
-    console.log("local", filename, localPath);
     buffer = fs.readFileSync(localPath);
   }
   res.setHeader("Cache-control", "public, max-age=86400, must-revalidate");
 
   switch (req.query.type) {
     case "thumbnail":
-      // filePath = path.resolve(".", `/public/thumbnails/${filename}`);
-      filePath = path.join(process.cwd(), `/public/thumbnails/${filename}`);
-      if (fs.existsSync(`${filePath}.webp`)) {
-        res.setHeader("Content-Type", "image/webp");
-        var readStream = fs.createReadStream(`${filePath}.webp`);
-        res.status(200);
-        readStream.pipe(res);
+      if (useBuffer) {
+        resbuffer = await Optimize(buffer, filePath, "webp", "cover", 170, 170);
+        res.setHeader("Content-Type", "image/jpeg");
+        res.send(resbuffer);
       } else {
-        await Optimize(
-          buffer,
-          filePath,
-          "webp",
-          "cover",
-          170,
-          170
-        );
-        var readStream = fs.createReadStream(`${filePath}.webp`);
-        res.setHeader("Content-Type", "image/webp");
-        res.status(200);
-        readStream.pipe(res);
+        filePath = path.join(process.cwd(), `/public/thumbnails/${filename}`);
+        if (fs.existsSync(`${filePath}.webp`)) {
+          res.setHeader("Content-Type", "image/webp");
+          var readStream = fs.createReadStream(`${filePath}.webp`);
+          res.status(200);
+          readStream.pipe(res);
+        } else {
+          await Optimize(buffer, filePath, "webp", "cover", 170, 170);
+          var readStream = fs.createReadStream(`${filePath}.webp`);
+          res.setHeader("Content-Type", "image/webp");
+          res.status(200);
+          readStream.pipe(res);
+        }
       }
       break;
     case "cover":
-      // filePath = path.resolve(".", `/public/covers/${filename}`);
-      filePath = path.join(process.cwd(), `/public/covers/${filename}`);
-      if (fs.existsSync(`${filePath}.webp`)) {
-        var readStream = fs.createReadStream(`${filePath}.webp`);
-        res.setHeader("Content-Type", "image/webp");
-        res.status(200);
-        readStream.pipe(res);
+      if (useBuffer) {
+        resbuffer = await Optimize(buffer, filePath, "webp", "cover", 500, 500);
+
+        res.setHeader("Content-Type", "image/jpeg");
+        res.send(resbuffer);
       } else {
-        await Optimize(
-          buffer,
-          filePath,
-          "webp",
-          "cover",
-          500,
-          500
-        );
-        var readStream = fs.createReadStream(`${filePath}.webp`);
-        res.setHeader("Content-Type", "image/webp");
-        res.status(200);
-        readStream.pipe(res);
+        filePath = path.join(process.cwd(), `/public/covers/${filename}`);
+        if (fs.existsSync(`${filePath}.webp`)) {
+          var readStream = fs.createReadStream(`${filePath}.webp`);
+          res.setHeader("Content-Type", "image/webp");
+          res.status(200);
+          readStream.pipe(res);
+        } else {
+          await Optimize(buffer, filePath, "webp", "cover", 500, 500);
+          var readStream = fs.createReadStream(`${filePath}.webp`);
+          res.setHeader("Content-Type", "image/webp");
+          res.status(200);
+          readStream.pipe(res);
+        }
       }
       break;
-      case "original":
+    case "original":
+      if (useBuffer) {
+        resbuffer = await Optimize(buffer, filePath, "webp", "cover");
+        res.setHeader("Content-Type", "image/jpeg");
+        res.send(resbuffer);
+      } else {
         filePath = path.join(process.cwd(), `/public/og/${filename}`);
         console.log("original", filePath);
         if (fs.existsSync(`${filePath}.webp`)) {
@@ -109,17 +113,14 @@ export default async (req, res) => {
           res.status(200);
           readStream.pipe(res);
         } else {
-          await Optimize(
-            buffer,
-            filePath,
-            "webp",
-            "cover",
-          );
+          await Optimize(buffer, filePath, "webp", "cover");
           var readStream = fs.createReadStream(`${filePath}.webp`);
           res.setHeader("Content-Type", "image/webp");
           res.status(200);
           readStream.pipe(res);
         }
+      }
+      break;
     default:
       break;
   }
