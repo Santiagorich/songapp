@@ -1,9 +1,14 @@
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
-function Header() {
+
+
+function Header({ signInWithGoogle,logout }) {
+  const user = useSelector((state) => state.userSlice.user);
+
   return (
     <div className="relative bg-black-color">
-      <div className="mx-4 max-full px-4 sm:px-6">
+      <div className="mx-2 max-full px-4 sm:px-6">
         <div className="flex items-center justify-between py-3 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:flex-1">
             <Link href="/">
@@ -26,7 +31,7 @@ function Header() {
             href="https://github.com/Santiagorich"
             className="flex flex-row gap-4 select-none"
           >
-            <svg viewBox="0 0 128 128">
+            <svg viewBox="0 0 128 128" className="w-6 h-6 text-white">
               <g fill="#fff">
                 <path
                   fillRule="evenodd"
@@ -38,6 +43,21 @@ function Header() {
             </svg>
             <span className="text-gray-300 font-bold">GitHub</span>
           </a>
+          {(user?.photoUrl) ? (
+            <img
+              src={user.photoUrl}
+              alt="user"
+              className="rounded-full h-10 w-10 hover:animate-pulse"
+              onClick={logout}
+            />
+          ) : (
+            <button
+              className="bg-white rounded-lg px-4 py-2"
+              onClick={signInWithGoogle}
+            >
+              Log In
+            </button>
+          )}
           {/* <nav className="hidden space-x-10 md:flex">
             <Link href="/AdminPage">
               <a className="text-base font-medium text-gray-300 hover:text-white">

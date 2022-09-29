@@ -7,7 +7,16 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useMediaQuery } from "react-responsive";
 import Chat from "../components/Chat/Chat";
-
+import { auth } from "../utils/firebase";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "firebase/auth";
+import { setUser } from "../components/Stores/Slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { rtdb } from "./../utils/firebase";
+import { set, ref, remove } from "firebase/database";
 export async function getStaticProps() {
   const preload = {
     name: "Top 100",
@@ -23,6 +32,15 @@ export async function getStaticProps() {
 }
 
 export default function Home({ preload }) {
+  const dispatch = useDispatch();
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+  };
+  const logout = () => {
+    auth.signOut();
+  };
+  var currentUser = null;
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(preload);
   const [volume, setVolume] = useState(1);
@@ -64,8 +82,30 @@ export default function Home({ preload }) {
     categories.map((category) => {
       fetchSongs(category.category);
     });
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentUser = user.uid;
+        set(ref(rtdb, "online/" + user.uid), {
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+        });
+        dispatch(
+          setUser({
+            email: user.email,
+            uid: user.uid,
+            displayName: user.displayName,
+            photoUrl: user.photoURL,
+          })
+        );
+      } else {
+        remove(ref(rtdb, "online/" + currentUser));
+        dispatch(setUser(null));
+      }
+    });
   }, []);
-  
+
   return (
     <div>
       <Head>
@@ -75,11 +115,10 @@ export default function Home({ preload }) {
           content="See what songs are popular right now!"
         />
       </Head>
-      <Header></Header>
+      <Header signInWithGoogle={signInWithGoogle} logout={logout}></Header>
 
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
-        
-        <div className="flex flex-row px-6 py-2 overflow-hidden whitespace-nowrap relative fader select-none">
+        <div className="flex flex-row py-2 overflow-hidden whitespace-nowrap relative fader select-none">
           <Swiper
             slidesPerView={isMobile ? 1 : 4}
             spaceBetween={0}
@@ -166,13 +205,9 @@ export default function Home({ preload }) {
             songs={currentCategory.songs}
           ></SongSwiper>
         </div>
-
       </div>
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
-        <div className="bg-gray-color rounded-lg w-full h-96">
-          <Chat></Chat>
-        </div>
-
+        <Chat></Chat>
       </div>
     </div>
   );
