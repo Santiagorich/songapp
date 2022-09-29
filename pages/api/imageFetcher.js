@@ -20,9 +20,9 @@ function Optimize(
       : sharp(buffer);
 
   const image = resized.toFormat(format, { force:true, quality: quality,nearLossless:true }).withMetadata();
-  if (abspath) {
-    return image.toFile(`${abspath}.${format}`);
-  }
+  // if (abspath) {
+  //   return image.toFile(`${abspath}.${format}`);
+  // }
   return image.toBuffer();
 }
 
