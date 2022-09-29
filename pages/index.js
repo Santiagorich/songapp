@@ -134,6 +134,7 @@ export default function Home({ preload }) {
                 max="1"
                 step="0.01"
                 defaultValue={volume}
+                label="Volume"
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 onChange={(e) => {
                   setVolume(e.target.value);
