@@ -63,6 +63,9 @@ export default function Home({ preload }) {
   const changeCategory = async (categoryName) => {
     pauseSong();
     const songs = await fetchSongs(categoryName);
+    songs.forEach((song) => {
+      fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`)
+    });
     setCurrentCategory({
       name: categories.find((c) => c.category === categoryName).name,
       category: categoryName,
@@ -72,9 +75,7 @@ export default function Home({ preload }) {
   const fetchSongs = async (category) => {
     const res = await fetch(`/api/songs?query=${category}`);
     const data = await res.json();
-    data.forEach((song) => {
-      fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`)
-    });
+    
     if (data.error) {
       return [];
     }
