@@ -25,8 +25,8 @@ function Chat() {
       <div className="w-1/5 bg-gray-color border-r-2 border-white flex flex-col items-center">
         <div className="py-4 border-b-2 border-white"><span className="text-white font-bold ">Online Users</span></div>
         <div className="flex flex-col gap-4 p-4">
-          {onlineUsers.map((user) => {
-            return (<div className="flex flex-row items-center gap-4">
+          {onlineUsers.forEach((user,index) => {
+            return (<div key={index} className="flex flex-row items-center gap-4">
             <img
               src={user.photoUrl}
               className="w-12 h-12 rounded-full"
