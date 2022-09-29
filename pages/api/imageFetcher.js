@@ -48,7 +48,7 @@ export default async (req, res) => {
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
   } else {
-    let baseurl = "http://localhost:3000/"
+    let baseurl = "https://localhost:3000/"
     if(process.env.VERCEL_URL){
       baseurl = "https://"+process.env.VERCEL_URL+"/"
     }
@@ -84,7 +84,7 @@ export default async (req, res) => {
       break;
     case "cover":
       if (useBuffer) {
-        resbuffer = await Optimize(buffer, filePath, "webp", "cover", 500, 500);
+        resbuffer = await Optimize(buffer, filePath, "webp", "cover", 300, 300);
 
         res.setHeader("Content-Type", "image/jpeg");
         res.send(resbuffer);
@@ -96,7 +96,7 @@ export default async (req, res) => {
           res.status(200);
           readStream.pipe(res);
         } else {
-          await Optimize(buffer, filePath, "webp", "cover", 500, 500);
+          await Optimize(buffer, filePath, "webp", "cover", 300, 300);
           var readStream = fs.createReadStream(`${filePath}.webp`);
           res.setHeader("Content-Type", "image/webp");
           res.status(200);
