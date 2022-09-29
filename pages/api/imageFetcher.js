@@ -19,9 +19,7 @@ function Optimize(
       ? sharp(buffer).resize(width, height, resizeOptions)
       : sharp(buffer);
 
-  const image = resized
-    .toFormat(format, { quality: quality })
-    .withMetadata()
+  const image = resized.toFormat(format, { quality: quality }).withMetadata();
   if (abspath) {
     return image.toFile(`${abspath}.${format}`);
   }
@@ -40,9 +38,9 @@ export default async (req, res) => {
   let buffer = null;
   let filePath = ``;
   let resbuffer = null;
+  result = await fetch(url);
+  buffer = await result.buffer();
   if (isRemote) {
-    result = await fetch(url);
-    buffer = await result.buffer();
     filename = url
       .split("/")
       .slice(-3)
@@ -50,9 +48,7 @@ export default async (req, res) => {
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
   } else {
-    // let localPath = path.resolve(".", `${url}`);
     filename = path.basename(url);
-    buffer = fs.readFileSync(url);
   }
   res.setHeader("Cache-control", "public, max-age=86400, must-revalidate");
 
