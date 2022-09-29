@@ -9,7 +9,7 @@ function Optimize(
   imageFit = "fill",
   width = null,
   height = null,
-  quality = 50
+  quality = 60
 ) {
   const resizeOptions = {
     fit: imageFit,
@@ -19,7 +19,7 @@ function Optimize(
       ? sharp(buffer).resize(width, height, resizeOptions)
       : sharp(buffer);
 
-  const image = resized.toFormat(format, { force:true, quality: quality,nearLossless:true }).withMetadata();
+  const image = resized.toFormat(format, { force:true, quality: quality }).withMetadata();
   // if (abspath) {
   //   return image.toFile(`${abspath}.${format}`);
   // }
@@ -52,7 +52,7 @@ export default async (req, res) => {
     if(process.env.VERCEL_URL){
       baseurl = "https://"+process.env.VERCEL_URL+"/"
     }
-    result = await fetch(`${baseurl}/${url}`);
+    result = await fetch(`${baseurl}${url}`);
     
     filename = path.basename(url);
   }
