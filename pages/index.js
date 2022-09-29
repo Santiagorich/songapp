@@ -174,6 +174,7 @@ export default function Home({ preload }) {
                 min="0"
                 max="1"
                 step="0.01"
+                aria-label="volume"
                 defaultValue={volume}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 onChange={(e) => {
