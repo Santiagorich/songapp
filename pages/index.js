@@ -6,6 +6,7 @@ import { categories } from "../constants/categories";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useMediaQuery } from "react-responsive";
+import Chat from "../components/Chat/Chat";
 
 export async function getStaticProps() {
   const preload = {
@@ -77,6 +78,7 @@ export default function Home({ preload }) {
       <Header></Header>
 
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
+        
         <div className="flex flex-row px-6 py-2 overflow-hidden whitespace-nowrap relative fader select-none">
           <Swiper
             slidesPerView={isMobile ? 1 : 4}
@@ -164,6 +166,13 @@ export default function Home({ preload }) {
             songs={currentCategory.songs}
           ></SongSwiper>
         </div>
+
+      </div>
+      <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
+        <div className="bg-gray-color rounded-lg w-full h-96">
+          <Chat></Chat>
+        </div>
+
       </div>
     </div>
   );
