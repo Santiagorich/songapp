@@ -208,7 +208,7 @@ export default function Home({ preload }) {
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
-        <Chat></Chat>
+        {/* <Chat></Chat> */}
       </div>
     </div>
   );
