@@ -25,7 +25,7 @@ function Optimize(
   if (abspath) {
     return image.toFile(`${abspath}.${format}`);
   }
-  return image;
+  return image.toBuffer();
 }
 
 export default async (req, res) => {
