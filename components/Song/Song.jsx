@@ -21,7 +21,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       style={{
         width: "18.75em",
         height: "18.75em",
-        backgroundImage: `url(${song.thumbnail})`,
+        backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
