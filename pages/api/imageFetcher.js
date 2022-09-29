@@ -5,11 +5,11 @@ const fs = require("fs");
 function Optimize(
   buffer,
   abspath = null,
-  format = "jpeg",
+  format = "webp",
   imageFit = "fill",
   width = null,
   height = null,
-  quality = 80
+  quality = 60
 ) {
   const resizeOptions = {
     fit: imageFit,
@@ -19,7 +19,7 @@ function Optimize(
       ? sharp(buffer).resize(width, height, resizeOptions)
       : sharp(buffer);
 
-  const image = resized.toFormat(format, { quality: quality }).withMetadata();
+  const image = resized.toFormat(format, { quality: quality, nearLossless:true }).withMetadata();
   if (abspath) {
     return image.toFile(`${abspath}.${format}`);
   }
