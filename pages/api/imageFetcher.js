@@ -38,9 +38,9 @@ export default async (req, res) => {
   let buffer = null;
   let filePath = ``;
   let resbuffer = null;
-  result = await fetch(url);
-  buffer = await result.buffer();
+  
   if (isRemote) {
+    result = await fetch(url);
     filename = url
       .split("/")
       .slice(-3)
@@ -48,8 +48,12 @@ export default async (req, res) => {
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
   } else {
+    result = await fetch(`${process.env.VERCEL_URL}${url}`);
+    
     filename = path.basename(url);
   }
+  buffer = await result.buffer();
+
   res.setHeader("Cache-control", "public, max-age=86400, must-revalidate");
 
   switch (req.query.type) {
