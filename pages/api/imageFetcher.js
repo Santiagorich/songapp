@@ -48,8 +48,11 @@ export default async (req, res) => {
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
   } else {
-    console.log('Vercel URL:',process.env.VERCEL_URL);
-    result = await fetch(`${process.env.VERCEL_URL}/${url}`);
+    baseurl = "http://localhost:3000/"
+    if(process.env.VERCEL_URL){
+      baseurl = "https://"+process.env.VERCEL_URL+"/"
+    }
+    result = await fetch(`${baseurl}/${url}`);
     
     filename = path.basename(url);
   }
