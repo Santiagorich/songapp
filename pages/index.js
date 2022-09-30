@@ -80,9 +80,9 @@ export default function Home({ preload }) {
 
   useEffect(() => {
     categories.map(async (category) => {
-      await fetchSongs(category.category);
+      let songRes = await fetchSongs(category.category);
       await Promise.all(
-        category.songs.map((song) => {
+        songRes.songs.map((song) => {
           return fetch(
             `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
           );
