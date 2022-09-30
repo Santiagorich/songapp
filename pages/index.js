@@ -18,6 +18,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { rtdb } from "./../utils/firebase";
 import { set, ref, remove } from "firebase/database";
 export async function getStaticProps() {
+  categories.map(async (category) => {
+    let songRes = await fetchSongs(category.category);
+    Promise.all(
+      songRes.map((song) => {
+        return fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
+      })
+    );
+  });
   const preload = {
     name: "Top 100",
     category: "top-100",
@@ -79,16 +87,16 @@ export default function Home({ preload }) {
   };
 
   useEffect(() => {
-    categories.map(async (category) => {
-      let songRes = await fetchSongs(category.category);
-      await Promise.all(
-        songRes.map((song) => {
-          return fetch(
-            `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
-          );
-        })
-      )
-    });
+    // categories.map(async (category) => {
+    //   let songRes = await fetchSongs(category.category);
+    //   await Promise.all(
+    //     songRes.map((song) => {
+    //       return fetch(
+    //         `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
+    //       );
+    //     })
+    //   );
+    // });
     onAuthStateChanged(auth, (user) => {
       if (user) {
         currentUser = user.uid;
