@@ -79,11 +79,15 @@ export default function Home({ preload }) {
   };
 
   useEffect(() => {
-    currentCategory.songs.forEach((song) => {
-      fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
-    });
-    categories.map((category) => {
-      fetchSongs(category.category);
+    categories.map(async (category) => {
+      await fetchSongs(category.category);
+      Promise.all(
+        category.songs.map((song) => {
+          return fetch(
+            `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
+          );
+        })
+      )
     });
     onAuthStateChanged(auth, (user) => {
       if (user) {
