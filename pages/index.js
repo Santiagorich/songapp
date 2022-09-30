@@ -82,7 +82,7 @@ export default function Home({ preload }) {
     categories.map(async (category) => {
       let songRes = await fetchSongs(category.category);
       await Promise.all(
-        songRes.songs.map((song) => {
+        songRes.map((song) => {
           return fetch(
             `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
           );
