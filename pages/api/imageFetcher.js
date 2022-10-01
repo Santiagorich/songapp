@@ -19,7 +19,9 @@ function Optimize(
       ? sharp(buffer).resize(width, height, resizeOptions)
       : sharp(buffer);
 
-  const image = resized.toFormat(format, { force:true, quality: quality }).withMetadata();
+  const image = resized
+    .toFormat(format, { force: true, quality: quality })
+    .withMetadata();
   // if (abspath) {
   //   return image.toFile(`${abspath}.${format}`);
   // }
@@ -38,7 +40,7 @@ export default async (req, res) => {
   let buffer = null;
   let filePath = ``;
   let resbuffer = null;
-  
+  let quality = req.query.quality;
   if (isRemote) {
     result = await fetch(url);
     filename = url
@@ -48,12 +50,12 @@ export default async (req, res) => {
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
   } else {
-    let baseurl = "http://localhost:3000/"
-    if(process.env.VERCEL_URL){
-      baseurl = "https://"+process.env.VERCEL_URL+"/"
+    let baseurl = "http://localhost:3000/";
+    if (process.env.VERCEL_URL) {
+      baseurl = "https://" + process.env.VERCEL_URL + "/";
     }
     result = await fetch(`${baseurl}${url}`);
-    
+
     filename = path.basename(url);
   }
   buffer = await result.buffer();
@@ -63,7 +65,15 @@ export default async (req, res) => {
   switch (req.query.type) {
     case "thumbnail":
       if (useBuffer) {
-        resbuffer = await Optimize(buffer, filePath, "webp", "cover", 170, 170);
+        resbuffer = await Optimize(
+          buffer,
+          filePath,
+          "webp",
+          "cover",
+          170,
+          170,
+          quality
+        );
         res.setHeader("Content-Type", "image/jpeg");
         res.send(resbuffer);
       } else {
@@ -74,7 +84,7 @@ export default async (req, res) => {
           res.status(200);
           readStream.pipe(res);
         } else {
-          await Optimize(buffer, filePath, "webp", "cover", 170, 170);
+          await Optimize(buffer, filePath, "webp", "cover", 170, 170, quality);
           var readStream = fs.createReadStream(`${filePath}.webp`);
           res.setHeader("Content-Type", "image/webp");
           res.status(200);
@@ -84,7 +94,15 @@ export default async (req, res) => {
       break;
     case "cover":
       if (useBuffer) {
-        resbuffer = await Optimize(buffer, filePath, "webp", "cover", 300, 300);
+        resbuffer = await Optimize(
+          buffer,
+          filePath,
+          "webp",
+          "cover",
+          300,
+          300,
+          quality
+        );
 
         res.setHeader("Content-Type", "image/jpeg");
         res.send(resbuffer);
@@ -96,7 +114,7 @@ export default async (req, res) => {
           res.status(200);
           readStream.pipe(res);
         } else {
-          await Optimize(buffer, filePath, "webp", "cover", 300, 300);
+          await Optimize(buffer, filePath, "webp", "cover", 300, 300, quality);
           var readStream = fs.createReadStream(`${filePath}.webp`);
           res.setHeader("Content-Type", "image/webp");
           res.status(200);
@@ -106,7 +124,7 @@ export default async (req, res) => {
       break;
     case "original":
       if (useBuffer) {
-        resbuffer = await Optimize(buffer, filePath, "webp", "cover");
+        resbuffer = await Optimize(buffer, filePath, "webp", "cover",null,null,quality);
         res.setHeader("Content-Type", "image/jpeg");
         res.send(resbuffer);
       } else {
@@ -118,7 +136,7 @@ export default async (req, res) => {
           res.status(200);
           readStream.pipe(res);
         } else {
-          await Optimize(buffer, filePath, "webp", "cover");
+          await Optimize(buffer, filePath, "webp", "cover",null,null,quality);
           var readStream = fs.createReadStream(`${filePath}.webp`);
           res.setHeader("Content-Type", "image/webp");
           res.status(200);
