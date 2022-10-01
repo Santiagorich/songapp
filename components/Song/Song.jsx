@@ -3,19 +3,16 @@ import { useEffect, useState } from "react";
 import { Triangle } from "react-loader-spinner";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
-  const [ytLink, setYtLink] = useState();
+  const [ytLink, setYtLink] = useState(
+    `https://music.youtube.com/search?q=${encodeURI(
+      song.title + " - " + song.artist
+    )}`
+  );
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setYtLink(
-      `https://music.youtube.com/search?q=${encodeURI(
-        song.title + " - " + song.artist
-      )}`
-    );
-    fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
-      .then((response) => response.text())
-      .then((data) => {
-        setYtLink("https://music.youtube.com/watch?v=" + data);
-      });
+    return () => {
+      setLoading(true);
+    };
   }, [song]);
 
   return (
@@ -23,11 +20,6 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       style={{
         width: "18.75em",
         height: "18.75em",
-        // backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`,
-        //backgroundImage: `url(${song.thumbnail})`,
-        // backgroundSize: "cover",
-        // backgroundPosition: "center",
-        // backgroundRepeat: "no-repeat",
       }}
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={(e) => {
@@ -53,7 +45,13 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           />
         </div>
       )}
-      <Image
+      <div
+        style={{
+          backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`,
+        }}
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
+      ></div>
+      {/* <Image
         layout="fill"
         src={`/api/imageFetcher?url=${encodeURIComponent(
           song.thumbnail
@@ -61,14 +59,10 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         className={`absolute z-0 ${loading ? `invisible` : ``}`}
         objectFit="cover"
         alt={song.title}
-        onLoadStart={() => {
-          setLoading(true);
-        }}
         onLoadingComplete={() => {
           setLoading(false);
         }}
-        priority
-      ></Image>
+      ></Image> */}
       <Image
         layout="fill"
         src={`/api/imageFetcher?url=${encodeURIComponent(
@@ -138,12 +132,21 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         onClick={(e) => {
           e.stopPropagation();
           pauseSong();
+          fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
+            .then((response) => response.text())
+            .then((data) => {
+              window.open(
+                "https://music.youtube.com/watch?v=" + data,
+                "_blank",
+                "noopener,noreferrer"
+              );
+            })
+            .catch((err) => {
+              window.open(ytLink, "_blank", "noopener,noreferrer");
+            });
         }}
         className="absolute bottom-3 left-3"
         aria-label={song.title + " - " + song.artist}
-        target="_blank"
-        rel="noreferrer"
-        href={ytLink}
       >
         <div className="flex flex-row gap-3">
           <div className="flex hover:bg-red-700 rounded-2xl py-1 px-2 ">

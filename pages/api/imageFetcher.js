@@ -54,7 +54,9 @@ export default async (req, res) => {
     if (process.env.VERCEL_URL) {
       baseurl = "https://" + process.env.VERCEL_URL + "/";
     }
-    result = await fetch(`${baseurl}${url}`);
+    result = await fetch(`${baseurl}${url}`).catch((err) => {
+      return res.status(400).json({ error: err });
+    });
 
     filename = path.basename(url);
   }
