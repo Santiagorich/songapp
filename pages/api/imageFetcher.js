@@ -61,7 +61,7 @@ export default async (req, res) => {
   buffer = await result.buffer();
 
   res.setHeader("Cache-control", "public, max-age=86400, must-revalidate");
-
+  console.log("Type: " + req.query.type);
   switch (req.query.type) {
     case "thumbnail":
       if (useBuffer) {
