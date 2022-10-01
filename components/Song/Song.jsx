@@ -21,11 +21,11 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       style={{
         width: "18.75em",
         height: "18.75em",
-        // backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`, 
-        // backgroundImage: `url(${song.thumbnail})`,
-        // backgroundSize: "cover",
-        // backgroundPosition: "center",
-        // backgroundRepeat: "no-repeat",
+        backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`,
+        //backgroundImage: `url(${song.thumbnail})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={(e) => {
@@ -38,25 +38,16 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         }
       }}
     >
-       <Image
+      <Image
         layout="fill"
-        src={`/api/imageFetcher?url=${encodeURIComponent(song.thumbnail)}&type=thumbnail`} //Not using loaders as i know the size i want
-        className="absolute z-0"
-        objectFit="cover"
-        alt={song.title}
-        blurDataURL={`/api/imageFetcher?url=${encodeURIComponent(song.thumbnail)}&type=thumbnail`}  
-        placeholder="empty"
-        priority
-        
-      ></Image> 
-       <Image
-        layout="fill"
-        src={`/api/imageFetcher?url=${encodeURIComponent(song.image)}&type=cover`} //Not using loaders as i know the size i want
+        src={`/api/imageFetcher?url=${encodeURIComponent(
+          song.image
+        )}&type=cover`} //Not using loaders as i know the size i want
         className="absolute z-0"
         objectFit="cover"
         alt={song.title}
         placeholder="empty"
-      ></Image> 
+      ></Image>
 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center text-white flex z-20">
         {currentlyPlaying && currentlyPlaying.src == song.song ? (
@@ -100,7 +91,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           objectFit="cover"
           alt={song.title}
           loading="eager"
-        ></Image> 
+        ></Image>
 
         <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
           {song.number}. {song.title}
