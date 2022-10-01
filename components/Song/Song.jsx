@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
+import { Triangle } from "react-loader-spinner";
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
   const [ytLink, setYtLink] = useState();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     setYtLink(
       `https://music.youtube.com/search?q=${encodeURI(
@@ -21,11 +23,11 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       style={{
         width: "18.75em",
         height: "18.75em",
-        backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`,
+        // backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`,
         //backgroundImage: `url(${song.thumbnail})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        // backgroundSize: "cover",
+        // backgroundPosition: "center",
+        // backgroundRepeat: "no-repeat",
       }}
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={(e) => {
@@ -38,6 +40,34 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         }
       }}
     >
+      {loading ? (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center">
+          <Triangle
+          height="80"
+          width="80"
+          color="#b91c1c"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
+        />
+        </div>
+      ) : (
+        <Image
+          layout="fill"
+          src={`/api/imageFetcher?url=${encodeURIComponent(
+            song.thumbnail
+          )}&type=thumbnail`} //Not using loaders as i know the size i want
+          className="absolute z-0"
+          objectFit="cover"
+          alt={song.title}
+          onLoad={() => {
+            setLoading(false);
+          }}
+          priority
+        ></Image>
+      )}
+
       <Image
         layout="fill"
         src={`/api/imageFetcher?url=${encodeURIComponent(
@@ -47,6 +77,11 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         objectFit="cover"
         alt={song.title}
         placeholder="empty"
+        onLoad={() => {
+          if (loading) {
+            setLoading(false);
+          }
+        }}
       ></Image>
 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center text-white flex z-20">
