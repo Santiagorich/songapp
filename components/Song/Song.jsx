@@ -40,7 +40,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         }
       }}
     >
-      {loading ? (
+      {loading && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center">
           <Triangle
           height="80"
@@ -52,22 +52,21 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           visible={true}
         />
         </div>
-      ) : (
+      )}
         <Image
           layout="fill"
           src={`/api/imageFetcher?url=${encodeURIComponent(
             song.thumbnail
           )}&type=thumbnail`} //Not using loaders as i know the size i want
-          className="absolute z-0"
+          className={`absolute z-0 ${loading?`invisible`:``}`}
           objectFit="cover"
           alt={song.title}
           onLoad={() => {
             setLoading(false);
           }}
           priority
+          
         ></Image>
-      )}
-
       <Image
         layout="fill"
         src={`/api/imageFetcher?url=${encodeURIComponent(
