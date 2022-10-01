@@ -50,7 +50,7 @@ export default async (req, res) => {
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
   } else {
-    let baseurl = "http://localhost:3000/";
+    let baseurl = "http://localhost:3000/public";
     if (process.env.VERCEL_URL) {
       baseurl = "https://" + process.env.VERCEL_URL + "/";
     }
@@ -61,7 +61,6 @@ export default async (req, res) => {
   buffer = await result.buffer();
 
   res.setHeader("Cache-control", "public, max-age=86400, must-revalidate");
-  console.log("Type: " + req.query.type);
   switch (req.query.type) {
     case "thumbnail":
       if (useBuffer) {
