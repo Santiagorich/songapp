@@ -74,7 +74,7 @@ export default function Home({ preload }) {
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(preload);
   const [volume, setVolume] = useState(1);
-  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 520px)" });
   const playSong = (song) => {
     const audio = new Audio(song);
     audio.play();
