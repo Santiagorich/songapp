@@ -128,7 +128,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         </span>
         <span className="text-white z-10">{song.artist}</span>
       </div>
-      <a
+      <button
         onClick={(e) => {
           e.stopPropagation();
           pauseSong();
@@ -146,6 +146,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
             });
         }}
         className="absolute bottom-3 left-3"
+        aria-label={song.title + " - " + song.artist}
       >
         <div className="flex flex-row gap-3">
           <div className="flex hover:bg-red-700 rounded-2xl py-1 px-2 ">
@@ -178,7 +179,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
             </svg>
           </div>
         </div>
-      </a>
+      </button>
     </div>
   );
 }
