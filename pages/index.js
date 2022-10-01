@@ -24,29 +24,29 @@ import { set, ref, remove } from "firebase/database";
 //UploadCare and drop the api
 //All 3 have cdns
 export async function getStaticProps() {
-  categories.map(async (category) => {
-    let coverArr = [];
-    let thumbnailArr = [];
-    let songRes = await fetchSongs(category.category);
-    await Promise.all(
-      songRes.map((song) => {
-        return fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
-      })
-    ).then((res) => {
-      res.map((r) => {
-        thumbnailArr.push(r);
-      });
-    });
-    await Promise.all(
-      songRes.map((song) => {
-        return fetch(`/api/imageFetcher?url=${song.image}&type=cover`);
-      })
-    ).then((res) => {
-      res.map((r) => {
-        coverArr.push(r);
-      });
-    });
-  });
+  // categories.map(async (category) => {
+  //   let coverArr = [];
+  //   let thumbnailArr = [];
+  //   let songRes = await fetchSongs(category.category);
+  //   await Promise.all(
+  //     songRes.map((song) => {
+  //       return fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
+  //     })
+  //   ).then((res) => {
+  //     res.map((r) => {
+  //       thumbnailArr.push(r);
+  //     });
+  //   });
+  //   await Promise.all(
+  //     songRes.map((song) => {
+  //       return fetch(`/api/imageFetcher?url=${song.image}&type=cover`);
+  //     })
+  //   ).then((res) => {
+  //     res.map((r) => {
+  //       coverArr.push(r);
+  //     });
+  //   });
+  // });
   const preload = {
     name: "Top 100",
     category: "top-100",
@@ -112,16 +112,16 @@ export default function Home({ preload }) {
     // categories.map(async (category) => {
     //   let songRes = await fetchSongs(category.category);
     // });
-    categories.map(async (category) => {
-      let songRes = await fetchSongs(category.category);
-      await Promise.all(
-        songRes.map((song) => {
-          return fetch(
-            `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
-          );
-        })
-      );
-    });
+    // categories.map(async (category) => {
+    //   let songRes = await fetchSongs(category.category);
+    //   await Promise.all(
+    //     songRes.map((song) => {
+    //       return fetch(
+    //         `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
+    //       );
+    //     })
+    //   );
+    // });
     onAuthStateChanged(auth, (user) => {
       if (user) {
         currentUser = user.uid;
