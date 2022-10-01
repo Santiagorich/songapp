@@ -24,19 +24,19 @@ import { set, ref, remove } from "firebase/database";
 //UploadCare and drop the api
 //All 3 have cdns
 export async function getStaticProps() {
-  // categories.map(async (category) => {
-  //   let songRes = await fetchSongs(category.category);
-  //   await Promise.all(
-  //     songRes.map((song) => {
-  //       return fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
-  //     })
-  //   );
-  //   await Promise.all(
-  //     songRes.map((song) => {
-  //       return fetch(`/api/imageFetcher?url=${song.image}&type=cover`);
-  //     })
-  //   );
-  // });
+  categories.map(async (category) => {
+    let songRes = await fetchSongs(category.category);
+    await Promise.all(
+      songRes.map((song) => {
+        return fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
+      })
+    );
+    await Promise.all(
+      songRes.map((song) => {
+        return fetch(`/api/imageFetcher?url=${song.image}&type=cover`);
+      })
+    );
+  });
   const preload = {
     name: "Top 100",
     category: "top-100",
