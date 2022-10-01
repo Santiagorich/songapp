@@ -46,7 +46,8 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         alt={song.title}
         blurDataURL={`/api/imageFetcher?url=${encodeURIComponent(song.thumbnail)}&type=thumbnail`}  
         placeholder="empty"
-        priority={true}
+        priority
+        
       ></Image> 
        <Image
         layout="fill"
@@ -55,7 +56,6 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         objectFit="cover"
         alt={song.title}
         placeholder="empty"
-        lazy="true"
       ></Image> 
 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center text-white flex z-20">
