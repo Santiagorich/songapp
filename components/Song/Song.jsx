@@ -61,6 +61,9 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         className={`absolute z-0 ${loading ? `invisible` : ``}`}
         objectFit="cover"
         alt={song.title}
+        onLoadStart={() => {
+          setLoading(true);
+        }}
         onLoadingComplete={() => {
           setLoading(false);
         }}
