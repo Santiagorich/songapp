@@ -61,7 +61,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         className={`absolute z-0 ${loading ? `invisible` : ``}`}
         objectFit="cover"
         alt={song.title}
-        onLoad={() => {
+        onLoadingComplete={() => {
           setLoading(false);
         }}
         priority
@@ -74,7 +74,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         className="absolute z-0"
         objectFit="cover"
         alt={song.title}
-        onLoad={() => {
+        onLoadingComplete={() => {
           if (loading) {
             setLoading(false);
           }
