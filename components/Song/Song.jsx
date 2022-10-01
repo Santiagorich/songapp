@@ -21,11 +21,11 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       style={{
         width: "18.75em",
         height: "18.75em",
-        backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`, 
+        // backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`, 
         // backgroundImage: `url(${song.thumbnail})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        // backgroundSize: "cover",
+        // backgroundPosition: "center",
+        // backgroundRepeat: "no-repeat",
       }}
       className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
       onClick={(e) => {
@@ -38,6 +38,16 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         }
       }}
     >
+       <Image
+        layout="fill"
+        src={`/api/imageFetcher?url=${encodeURIComponent(song.thumbnail)}&type=thumbnail`} //Not using loaders as i know the size i want
+        className="absolute z-0"
+        objectFit="cover"
+        alt={song.title}
+        blurDataURL={`/api/imageFetcher?url=${encodeURIComponent(song.thumbnail)}&type=thumbnail`}  
+        placeholder="empty"
+        priority={true}
+      ></Image> 
        <Image
         layout="fill"
         src={`/api/imageFetcher?url=${encodeURIComponent(song.image)}&type=cover`} //Not using loaders as i know the size i want
