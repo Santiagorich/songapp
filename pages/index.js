@@ -74,7 +74,6 @@ export default function Home({ preload }) {
     });
   };
 
-  
   const pauseSong = () => {
     if (currentlyPlaying) {
       currentlyPlaying.audio.pause();
@@ -100,6 +99,9 @@ export default function Home({ preload }) {
   };
 
   useEffect(() => {
+    categories.map(async (category) => {
+      let songRes = await fetchSongs(category.category);
+    });
     // categories.map(async (category) => {
     //   let songRes = await fetchSongs(category.category);
     //   await Promise.all(
