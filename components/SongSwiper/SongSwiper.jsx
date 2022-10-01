@@ -6,12 +6,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/lazy";
 
-function SongSwiper({ songs,currentlyPlaying,playSong,pauseSong }) {
+function SongSwiper({ mobile,songs,currentlyPlaying,playSong,pauseSong }) {
   var songChunks = [];
   SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
-
-  for (let i = 0; i < songs.length; i += 8) {
-    songChunks.push(songs.slice(i, i + 8));
+  let steps = (mobile ? 4 : 8);
+  for (let i = 0; i < songs.length; i += steps) {
+    songChunks.push(songs.slice(i, i + steps));
   }
   return (
     <div>
@@ -21,7 +21,7 @@ function SongSwiper({ songs,currentlyPlaying,playSong,pauseSong }) {
         keyboard={{
           enabled: true,
         }}
-        navigation={true}
+        navigation={(mobile ? false : true)}
         lazy={true}
         virtual
         followFinger={true}
@@ -34,6 +34,7 @@ function SongSwiper({ songs,currentlyPlaying,playSong,pauseSong }) {
               <div className=" flex flex-wrap w-full gap-4 justify-center p-4 ">
                 {chunk.map((song, index) => (
                   <Song
+                    mobile={mobile}
                     key={index}
                     song={song}
                     playSong={playSong}
