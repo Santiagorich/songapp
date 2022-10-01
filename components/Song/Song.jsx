@@ -21,7 +21,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       style={{
         width: "18.75em",
         height: "18.75em",
-        backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`,
+        backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`, 
         // backgroundImage: `url(${song.thumbnail})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -40,7 +40,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
     >
        <Image
         layout="fill"
-        src={`/api/imageFetcher?url=${encodeURIComponent(song.image)}&type=cover`}
+        src={`/api/imageFetcher?url=${encodeURIComponent(song.image)}&type=cover`} //Not using loaders as i know the size i want
         className="absolute z-0"
         objectFit="cover"
         alt={song.title}
@@ -85,7 +85,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       <div className="flex flex-col px-4 py-6 -mt-5 w-full relative">
         <Image
           layout="fill"
-          src={`/api/imageFetcher?url=RedPaint.png&type=original`}
+          src={`/api/imageFetcher?url=RedPaint.png&type=original`} //Not using loaders as i know the size i want
           className="absolute z-0"
           objectFit="cover"
           alt={song.title}

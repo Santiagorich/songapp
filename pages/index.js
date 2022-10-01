@@ -17,15 +17,26 @@ import { setUser } from "../components/Stores/Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { rtdb } from "./../utils/firebase";
 import { set, ref, remove } from "firebase/database";
+
+//Options for caching:
+//Save to S3 After processing (I don't want to pay a penny)
+//Figure out a way to save it on vercel's cache (Should do it automatically)
+//UploadCare and drop the api
+//All 3 have cdns
 export async function getStaticProps() {
-  categories.map(async (category) => {
-    let songRes = await fetchSongs(category.category);
-    Promise.all(
-      songRes.map((song) => {
-        return fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
-      })
-    );
-  });
+  // categories.map(async (category) => {
+  //   let songRes = await fetchSongs(category.category);
+  //   await Promise.all(
+  //     songRes.map((song) => {
+  //       return fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
+  //     })
+  //   );
+  //   await Promise.all(
+  //     songRes.map((song) => {
+  //       return fetch(`/api/imageFetcher?url=${song.image}&type=cover`);
+  //     })
+  //   );
+  // });
   const preload = {
     name: "Top 100",
     category: "top-100",
@@ -62,6 +73,8 @@ export default function Home({ preload }) {
       audio: audio,
     });
   };
+
+  
   const pauseSong = () => {
     if (currentlyPlaying) {
       currentlyPlaying.audio.pause();
