@@ -25,17 +25,27 @@ import { set, ref, remove } from "firebase/database";
 //All 3 have cdns
 export async function getStaticProps() {
   categories.map(async (category) => {
+    let coverArr = [];
+    let thumbnailArr = [];
     let songRes = await fetchSongs(category.category);
     await Promise.all(
       songRes.map((song) => {
         return fetch(`/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`);
       })
-    );
+    ).then((res) => {
+      res.map((r) => {
+        thumbnailArr.push(r);
+      });
+    });
     await Promise.all(
       songRes.map((song) => {
         return fetch(`/api/imageFetcher?url=${song.image}&type=cover`);
       })
-    );
+    ).then((res) => {
+      res.map((r) => {
+        coverArr.push(r);
+      });
+    });
   });
   const preload = {
     name: "Top 100",
