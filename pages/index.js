@@ -109,19 +109,19 @@ export default function Home({ preload }) {
   };
 
   useEffect(() => {
-    categories.map(async (category) => {
-      let songRes = await fetchSongs(category.category);
-    });
     // categories.map(async (category) => {
     //   let songRes = await fetchSongs(category.category);
-    //   await Promise.all(
-    //     songRes.map((song) => {
-    //       return fetch(
-    //         `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
-    //       );
-    //     })
-    //   );
     // });
+    categories.map(async (category) => {
+      let songRes = await fetchSongs(category.category);
+      await Promise.all(
+        songRes.map((song) => {
+          return fetch(
+            `/api/imageFetcher?url=${song.thumbnail}&type=thumbnail`
+          );
+        })
+      );
+    });
     onAuthStateChanged(auth, (user) => {
       if (user) {
         currentUser = user.uid;
