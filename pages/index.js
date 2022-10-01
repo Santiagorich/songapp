@@ -112,6 +112,7 @@ export default function Home({ preload }) {
     categories.map(async (category) => {
        fetchSongs(category.category);
     });
+    console.log("Mounted");
     // categories.map(async (category) => {
     //   let songRes = await fetchSongs(category.category);
     //   await Promise.all(
