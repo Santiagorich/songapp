@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Triangle } from "react-loader-spinner";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-function Song({ song, playSong, pauseSong, currentlyPlaying }) {
+function Song({ mobile, song, playSong, pauseSong, currentlyPlaying }) {
   const [ytLink, setYtLink] = useState(
     `https://music.youtube.com/search?q=${encodeURI(
       song.title + " - " + song.artist
@@ -17,11 +17,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
 
   return (
     <div
-      style={{
-        width: "18.75em",
-        height: "18.75em",
-      }}
-      className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
+      className={`rounded-2xl ${mobile?`w-36 h-36`:`w-72 h-72`} relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group`}
       onClick={(e) => {
         let audio = song.song;
         if (currentlyPlaying && currentlyPlaying.src == audio) {

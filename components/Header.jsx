@@ -26,7 +26,6 @@ function Header({ signInWithGoogle,logout }) {
               </a>
             </Link>
           </div>
-          <div className="flex flex-row flex-1 gap-2 w-max "></div>
           <a
             href="https://github.com/Santiagorich"
             className="flex flex-row gap-4 select-none"
