@@ -108,19 +108,19 @@ export default function Home({ preload, props }) {
     return data;
   };
 
-  const useCheckMobileScreen = () => {
+  const checkMobile = () => {
     const width = window.innerWidth;
     return width <= 600;
   };
 
 
   useEffect(() => {
-    setIsMobile(useCheckMobileScreen());
-    dispatch(setMobile(useCheckMobileScreen()));
+    setIsMobile(checkMobile());
+    dispatch(setMobile(checkMobile()));
     if (window) {
       window.addEventListener("resize", () => {
-        setIsMobile(useCheckMobileScreen());
-        dispatch(setMobile(useCheckMobileScreen()));
+        setIsMobile(checkMobile());
+        dispatch(setMobile(checkMobile()));
       });
     }
     categories.map(async (category) => {
