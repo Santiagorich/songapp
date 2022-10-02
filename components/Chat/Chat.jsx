@@ -85,9 +85,9 @@ function Chat({ signInWithGoogle }) {
   return (
     <div className="flex flex-row bg-gray-color rounded-lg h-1/2 w-full overflow-hidden ">
       {!mobile && <OnlineList></OnlineList>}
-      <div className="w-full flex items-center p-4 flex-col m-2">
+      <div className="w-full h-full flex items-center p-4 flex-col m-2">
         <span className="text-white font-bold text-2xl h-fit">Chat Global</span>
-        <div ref={chatRef} className="h-full w-full bg-gray-color px-4 py-2 overflow-auto gap-4 flex flex-col fader-vertical">
+        <div ref={chatRef} className={`h-full w-full bg-gray-color px-4 py-2 overflow-auto gap-4 flex flex-col  ${user ? `fader-vertical-tb`:`fader-vertical-bt`}`}>
           {messages.map((message, index) => (
             <Message key={index} message={message}></Message>
           ))}
@@ -123,7 +123,7 @@ function Chat({ signInWithGoogle }) {
                 onClick={signInWithGoogle}
                 className="bg-white rounded-lg px-4 py-2"
               >
-                Sign in to chat
+                Log in to chat
               </button>
             </div>
           )}

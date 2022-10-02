@@ -26,9 +26,14 @@ body {
     mask-image: linear-gradient( to left, black calc(100% - 100px), transparent 100%);
 }
 
-.fader-vertical {
+.fader-vertical-tb {
     mask-image: linear-gradient( to bottom, black calc(100% - 100px), transparent 100%);
     mask-image: linear-gradient( to top, black calc(100% - 100px), transparent 100%);
+}
+
+.fader-vertical-bt {
+    mask-image: linear-gradient( to top, black calc(100% - 100px), transparent 100%);
+    mask-image: linear-gradient( to bottom, black calc(100% - 100px), transparent 100%);
 }
 
 * {
