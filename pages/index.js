@@ -73,7 +73,7 @@ export default function Home({ preload, props }) {
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(preload);
   const [volume, setVolume] = useState(1);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useSelector((state) => state.userSlice.isMobile);
   const playSong = (song) => {
     const audio = new Audio(song);
     audio.play();
@@ -112,14 +112,11 @@ export default function Home({ preload, props }) {
     const width = window.innerWidth;
     return width <= 600;
   };
-  setIsMobile(checkMobile());
-  dispatch(setMobile(checkMobile()));
 
   useEffect(() => {
-    
+    dispatch(setMobile(checkMobile()));
     if (window) {
       window.addEventListener("resize", () => {
-        setIsMobile(checkMobile());
         dispatch(setMobile(checkMobile()));
       });
     }
