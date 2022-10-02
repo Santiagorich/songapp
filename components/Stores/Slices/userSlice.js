@@ -14,15 +14,13 @@ const userSlice = createSlice({
     },
     setMobile: (state, action) => {
       state.isMobile = action.payload;
+      state.checked = true;
       return state;
     },
-    setChecked: (state, action) => {
-      state.checked = action.payload;
-      return state;
-    },
+
   },
 });
 
-export const { setUser,setMobile,setChecked } = userSlice.actions;
+export const { setUser,setMobile } = userSlice.actions;
 
 export default userSlice.reducer;

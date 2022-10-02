@@ -7,11 +7,11 @@ import "swiper/css/navigation";
 import "swiper/css/lazy";
 import { useSelector } from "react-redux";
 
-function SongSwiper({songs,currentlyPlaying,playSong,pauseSong }) {
+function SongSwiper({ songs, currentlyPlaying, playSong, pauseSong }) {
   const mobile = useSelector((state) => state.userSlice.isMobile);
   var songChunks = [];
   SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
-  let steps = (mobile ? 1 : 8);
+  let steps = mobile ? 1 : 8;
   for (let i = 0; i < songs.length; i += steps) {
     songChunks.push(songs.slice(i, i + steps));
   }
@@ -23,7 +23,7 @@ function SongSwiper({songs,currentlyPlaying,playSong,pauseSong }) {
         keyboard={{
           enabled: true,
         }}
-        navigation={(mobile ? false : true)}
+        navigation={mobile ? false : true}
         lazy={true}
         virtual
         followFinger={true}
@@ -32,8 +32,16 @@ function SongSwiper({songs,currentlyPlaying,playSong,pauseSong }) {
       >
         {songChunks.map((chunk, chunkindex) => {
           return (
-            <SwiperSlide key={chunkindex} virtualIndex={chunkindex}>
-              <div className=" flex flex-wrap w-full gap-4 justify-center p-4 ">
+            <SwiperSlide
+              key={chunkindex}
+              virtualIndex={chunkindex}
+              className="flex justify-center"
+            >
+              <div
+                className={`${
+                  mobile ? `flex` : `grid-cols-4 grid`
+                } w-fit gap-8 justify-center p-4 `}
+              >
                 {chunk.map((song, index) => (
                   <Song
                     mobile={mobile}
