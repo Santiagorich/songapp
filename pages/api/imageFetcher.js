@@ -55,11 +55,15 @@ export default async (req, res) => {
       baseurl = "https://" + process.env.VERCEL_URL + "/";
     }
     result = await fetch(`${baseurl}${url}`).catch((err) => {
-      return res.status(400).json({ error: err });
+      return { error: "File not found" };
     });
-
+    if (result.error) {
+      console.log(result.error);
+      return res.status(404).json({ error: "File not found" });
+      
+    }
     filename = path.basename(url);
-  }
+  } 
   buffer = await result.buffer();
 
   res.setHeader("Cache-control", "public, max-age=86400, must-revalidate");
