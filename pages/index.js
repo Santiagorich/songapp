@@ -112,11 +112,11 @@ export default function Home({ preload, props }) {
     const width = window.innerWidth;
     return width <= 600;
   };
-
+  setIsMobile(checkMobile());
+  dispatch(setMobile(checkMobile()));
 
   useEffect(() => {
-    setIsMobile(checkMobile());
-    dispatch(setMobile(checkMobile()));
+    
     if (window) {
       window.addEventListener("resize", () => {
         setIsMobile(checkMobile());
