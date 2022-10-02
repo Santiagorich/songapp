@@ -15,7 +15,7 @@ import {
 import { setUser, setMobile, setChecked } from "../components/Stores/Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { rtdb } from "./../utils/firebase";
-import { set, ref, remove } from "firebase/database";
+import { set, ref } from "firebase/database";
 import VolumeInput from "../components/VolumeInput/VolumeInput";
 //Options for caching:
 //Save to S3 After processing (I don't want to pay a penny)
@@ -68,7 +68,6 @@ export default function Home({ preload, props }) {
   const logout = () => {
     auth.signOut();
   };
-  var currentUser = null;
   const user = useSelector((state) => state.userSlice.user);
   const checked = useSelector((state) => state.userSlice.checked);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
@@ -117,8 +116,7 @@ export default function Home({ preload, props }) {
   useEffect(() => {
     if (!checked) {
       dispatch(setMobile(checkMobile()));
-      dispatch(setChecked(true));
-    }
+      }
     if (window) {
       window.addEventListener("resize", () => {
         dispatch(setMobile(checkMobile()));
@@ -140,7 +138,6 @@ export default function Home({ preload, props }) {
     // });
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        currentUser = user.uid;
         set(ref(rtdb, "online/" + user.uid), {
           email: user.email,
           uid: user.uid,
@@ -156,10 +153,10 @@ export default function Home({ preload, props }) {
           })
         );
       } else {
-        remove(ref(rtdb, "online/" + currentUser));
         dispatch(setUser(null));
       }
     });
+ 
   }, []);
 
   return (
