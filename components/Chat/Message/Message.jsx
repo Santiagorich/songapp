@@ -5,7 +5,7 @@ function Message({ message }) {
   const user = useSelector((state) => state.userSlice.user);
   const lastMsg = useSelector((state) => state.userSlice.lastMsg);
   const messageRef = useRef(null);
-  const isSender = message.sender.uid === user.uid;
+  const isSender = user? message.sender.uid === user.uid : false;
   const getTime = (timestamp) => {
     const date = new Date(timestamp);
     const hours = date.getHours();

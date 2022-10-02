@@ -6,7 +6,7 @@ import { setLastMsg } from "../Stores/Slices/userSlice";
 import Message from "./Message/Message";
 import OnlineList from "./OnlineList/OnlineList";
 
-function Chat() {
+function Chat({ signInWithGoogle }) {
   const [messages, setMessages] = useState([]);
   const dispatch = useDispatch();
   const mobile = useSelector((state) => state.userSlice.isMobile);
@@ -18,6 +18,7 @@ function Chat() {
   });
   const user = useSelector((state) => state.userSlice.user);
   const textAreaRef = useRef(null);
+  const chatRef = useRef(null);
   const sendMessage = (message) => {
     const timestamp = Date.now();
     if (
@@ -61,6 +62,7 @@ function Chat() {
       rows: currentRows < maxRows ? currentRows : maxRows,
     }));
   };
+
   useEffect(() => {
     const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
       const data = snapshot.val();
@@ -82,41 +84,50 @@ function Chat() {
 
   return (
     <div className="flex flex-row bg-gray-color rounded-lg h-1/2 w-full overflow-hidden ">
-       {!mobile && (
-        <OnlineList></OnlineList>
-      )} 
+      {!mobile && <OnlineList></OnlineList>}
       <div className="w-full flex items-center p-4 flex-col m-2">
         <span className="text-white font-bold text-2xl h-fit">Chat Global</span>
-        <div className="h-full w-full bg-gray-color px-4 py-2 overflow-auto gap-4 flex flex-col fader-vertical">
+        <div ref={chatRef} className="h-full w-full bg-gray-color px-4 py-2 overflow-auto gap-4 flex flex-col fader-vertical">
           {messages.map((message, index) => (
-             <Message key={index} message={message}></Message>
+            <Message key={index} message={message}></Message>
           ))}
         </div>
         <div class=" w-full flex justify-between items-center ">
-          <div
-            className={`flex-grow py-2 px-4 mr-1 ${
-              textAreaState.rows < 2 ? `rounded-full` : `rounded-lg  `
-            }  border border-gray-300 bg-gray-color-light text-gray-color-lighter placeholder-gray-color-lighter resize-none outline-none h-fit`}
-          >
-            <textarea
-              ref={textAreaRef}
-              rows={textAreaState.rows}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  if (!e.shiftKey) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    sendMessage(textAreaState.value);
+          {user ? (
+            <div
+              className={`flex-grow py-2 px-4 mr-1 ${
+                textAreaState.rows < 2 ? `rounded-full` : `rounded-lg  `
+              }  border border-gray-300 bg-gray-color-light text-gray-color-lighter placeholder-gray-color-lighter resize-none outline-none h-fit`}
+            >
+              <textarea
+                ref={textAreaRef}
+                rows={textAreaState.rows}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    if (!e.shiftKey) {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      sendMessage(textAreaState.value);
+                    }
                   }
-                }
-              }}
-              onChange={textAreaHandler}
-              value={textAreaState.value}
-              placeholder="Message..."
-              className=" flex justify-center w-full h-full bg-transparent outline-none resize-none"
-            ></textarea>
-          </div>
-          <button
+                }}
+                onChange={textAreaHandler}
+                value={textAreaState.value}
+                placeholder="Message..."
+                className=" flex justify-center w-full h-full bg-transparent outline-none resize-none"
+              ></textarea>
+            </div>
+          ) : (
+            <div className="flex justify-center w-full">
+              <button
+                onClick={signInWithGoogle}
+                className="bg-white rounded-lg px-4 py-2"
+              >
+                Sign in to chat
+              </button>
+            </div>
+          )}
+     {user ?      <button
             class="m-2 outline-none"
             onClick={() => {
               sendMessage(textAreaState.value);
@@ -136,6 +147,7 @@ function Chat() {
               ></path>
             </svg>
           </button>
+          : null}
         </div>
       </div>
     </div>
