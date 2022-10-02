@@ -258,7 +258,9 @@ export default function Home({ preload, props }) {
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8 h-screen">
         <Chat signInWithGoogle={signInWithGoogle}></Chat>
 
-        <div className={`${isMobile? `flex-col gap-8`:`flex-row`} flex py-4`}>
+
+      </div>
+      <div className={`${isMobile? `flex-col gap-8`:`flex-row`} flex py-4`}>
           <div className="flex flex-col w-full gap-8 items-center px-8 ">
             <span className="text-white font-bold text-4xl py-4 border-b-2">
               ¿Qué es OpenBootcamp?
@@ -304,7 +306,6 @@ export default function Home({ preload, props }) {
             </a>
           </div>
         </div>
-      </div>
     </div>
   );
 }
