@@ -140,26 +140,31 @@ export default function Home({ preload, props }) {
     //     })
     //   );
     // });
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        set(ref(rtdb, "online/" + user.uid), {
-          email: user.email,
-          uid: user.uid,
-          displayName: user.displayName,
-          photoUrl: user.photoURL,
+    onAuthStateChanged(auth, (logInUser) => {
+      if (logInUser) {
+        set(ref(rtdb, "online/" + logInUser.uid), {
+          email: logInUser.email,
+          uid: logInUser.uid,
+          displayName: logInUser.displayName,
+          photoUrl: logInUser.photoURL,
         });
         dispatch(
           setUser({
-            email: user.email,
-            uid: user.uid,
-            displayName: user.displayName,
-            photoUrl: user.photoURL,
+            email: logInUser.email,
+            uid: logInUser.uid,
+            displayName: logInUser.displayName,
+            photoUrl: logInUser.photoURL,
           })
         );
       } else {
         dispatch(setUser(null));
+        remove(ref(rtdb, "online/" + logInUser.uid));
+
       }
     });
+    return () => {
+      remove(ref(rtdb, "online/" + user.uid));
+    };
   }, []);
 
   return (
@@ -173,7 +178,7 @@ export default function Home({ preload, props }) {
       </Head>
       <Header signInWithGoogle={signInWithGoogle} logout={logout}></Header>
 
-      <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
+      <div className="flex flex-col gap-4 mt-4 mx-4 pb-8 h-screen">
         <div className="flex flex-row py-2 overflow-hidden whitespace-nowrap relative fader select-none">
           <Swiper
             slidesPerView={isMobile ? 1 : 4}
@@ -243,20 +248,9 @@ export default function Home({ preload, props }) {
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8 h-screen">
-        {user !== null ? (
-          <Chat></Chat>
-        ) : (
-          <div className="flex justify-center">
-            <button
-              onClick={signInWithGoogle}
-              className="bg-white rounded-lg px-4 py-2"
-            >
-              Sign in to chat
-            </button>
-          </div>
-        )}
-        ;
-        <div className="flex-row flex">
+          <Chat signInWithGoogle={signInWithGoogle}></Chat>
+        
+        <div className="flex-row flex  py-4">
           <div className="flex flex-col w-full gap-8 items-center px-8 ">
             <span className="text-white font-bold text-4xl py-4 border-b-2">
               ¿Qué es OpenBootcamp?
