@@ -4,6 +4,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isMobile: false,
+    checked: false,
     user: null,
   },
   reducers: {
@@ -15,9 +16,13 @@ const userSlice = createSlice({
       state.isMobile = action.payload;
       return state;
     },
+    setChecked: (state, action) => {
+      state.checked = action.payload;
+      return state;
+    },
   },
 });
 
-export const { setUser,setMobile } = userSlice.actions;
+export const { setUser,setMobile,setChecked } = userSlice.actions;
 
 export default userSlice.reducer;

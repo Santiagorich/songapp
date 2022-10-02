@@ -12,7 +12,7 @@ import {
   onAuthStateChanged,
   signInWithPopup,
 } from "firebase/auth";
-import { setUser, setMobile } from "../components/Stores/Slices/userSlice";
+import { setUser, setMobile, setChecked } from "../components/Stores/Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { rtdb } from "./../utils/firebase";
 import { set, ref, remove } from "firebase/database";
@@ -70,6 +70,7 @@ export default function Home({ preload, props }) {
   };
   var currentUser = null;
   const user = useSelector((state) => state.userSlice.user);
+  const checked = useSelector((state) => state.userSlice.checked);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(preload);
   const [volume, setVolume] = useState(1);
@@ -114,7 +115,10 @@ export default function Home({ preload, props }) {
   };
 
   useEffect(() => {
-    dispatch(setMobile(checkMobile()));
+    if (!checked) {
+      dispatch(setMobile(checkMobile()));
+      dispatch(setChecked(true));
+    }
     if (window) {
       window.addEventListener("resize", () => {
         dispatch(setMobile(checkMobile()));
