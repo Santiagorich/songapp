@@ -1,23 +1,23 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
-function Message({ message, last }) {
+function Message({ message }) {
   const user = useSelector((state) => state.userSlice.user);
+  const lastMsg = useSelector((state) => state.userSlice.lastMsg);
   const messageRef = useRef(null);
   const isSender = message.sender.uid === user.uid;
   const getTime = (timestamp) => {
-    var date = new Date(timestamp * 1000);
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    return `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
+    const date = new Date(timestamp);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const time = `${hours}:${minutes}`;
+    return time;
   };
   useEffect(() => {
-    if (last && message.sender.uid === user.uid) {
-      messageRef.current.scrollIntoView({ behavior: "smooth" });
+    if (lastMsg == message.timestamp) {
+      messageRef.current.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start' });
     }
-  }, [last]);
+  }, []);
   return (
     <div
       ref={messageRef}
