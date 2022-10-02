@@ -71,6 +71,7 @@ export default function Home({ preload }) {
     auth.signOut();
   };
   var currentUser = null;
+  const user = useSelector((state) => state.user);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(preload);
   const [volume, setVolume] = useState(1);
@@ -225,7 +226,18 @@ export default function Home({ preload }) {
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
-        {/* <Chat></Chat> */}
+        {user ? (
+          <Chat></Chat>
+        ):(
+        <div className="flex justify-center">
+          <button
+            onClick={signInWithGoogle}
+            className="bg-white rounded-lg px-4 py-2"          >
+            Sign in to chat
+          </button>
+        </div>)};
+        
+
       </div>
     </div>
   );

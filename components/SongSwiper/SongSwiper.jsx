@@ -9,7 +9,7 @@ import "swiper/css/lazy";
 function SongSwiper({ mobile,songs,currentlyPlaying,playSong,pauseSong }) {
   var songChunks = [];
   SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
-  let steps = (mobile ? 4 : 8);
+  let steps = (mobile ? 1 : 8);
   for (let i = 0; i < songs.length; i += steps) {
     songChunks.push(songs.slice(i, i + steps));
   }
