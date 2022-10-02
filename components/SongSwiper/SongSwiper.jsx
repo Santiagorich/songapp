@@ -5,8 +5,10 @@ import SwiperCore, { Lazy, Virtual, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/lazy";
+import { useSelector } from "react-redux";
 
-function SongSwiper({ mobile,songs,currentlyPlaying,playSong,pauseSong }) {
+function SongSwiper({songs,currentlyPlaying,playSong,pauseSong }) {
+  const mobile = useSelector((state) => state.userSlice.isMobile);
   var songChunks = [];
   SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
   let steps = (mobile ? 1 : 8);

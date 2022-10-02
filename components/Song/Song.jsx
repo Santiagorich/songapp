@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Triangle } from "react-loader-spinner";
+import { useSelector } from 'react-redux';
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-function Song({ mobile, song, playSong, pauseSong, currentlyPlaying }) {
+function Song({ song, playSong, pauseSong, currentlyPlaying }) {
   const [ytLink, setYtLink] = useState(
     `https://music.youtube.com/search?q=${encodeURI(
       song.title + " - " + song.artist
     )}`
   );
+  const mobile = useSelector((state) => state.userSlice.isMobile);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     return () => {

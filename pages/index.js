@@ -5,7 +5,6 @@ import { getSongs } from "../utils/getSongs";
 import { categories } from "../constants/categories";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useMediaQuery } from "react-responsive";
 import Chat from "../components/Chat/Chat";
 import { auth } from "../utils/firebase";
 import {
@@ -13,12 +12,11 @@ import {
   onAuthStateChanged,
   signInWithPopup,
 } from "firebase/auth";
-import { setUser } from "../components/Stores/Slices/userSlice";
+import { setUser, setMobile } from "../components/Stores/Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { rtdb } from "./../utils/firebase";
 import { set, ref, remove } from "firebase/database";
 import VolumeInput from "../components/VolumeInput/VolumeInput";
-
 //Options for caching:
 //Save to S3 After processing (I don't want to pay a penny)
 //Figure out a way to save it on vercel's cache (Should do it automatically)
@@ -61,7 +59,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ preload }) {
+export default function Home({ preload, props }) {
   const dispatch = useDispatch();
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -71,11 +69,11 @@ export default function Home({ preload }) {
     auth.signOut();
   };
   var currentUser = null;
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.userSlice.user);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(preload);
   const [volume, setVolume] = useState(1);
-  const isMobile = useMediaQuery({ query: "(max-width: 520px)" });
+  const [isMobile, setIsMobile] = useState(false);
   const playSong = (song) => {
     const audio = new Audio(song);
     audio.play();
@@ -110,7 +108,21 @@ export default function Home({ preload }) {
     return data;
   };
 
+  const useCheckMobileScreen = () => {
+    const width = window.innerWidth;
+    return width <= 600;
+  };
+
+
   useEffect(() => {
+    setIsMobile(useCheckMobileScreen());
+    dispatch(setMobile(useCheckMobileScreen()));
+    if (window) {
+      window.addEventListener("resize", () => {
+        setIsMobile(useCheckMobileScreen());
+        dispatch(setMobile(useCheckMobileScreen()));
+      });
+    }
     categories.map(async (category) => {
       fetchSongs(category.category);
     });
@@ -193,18 +205,22 @@ export default function Home({ preload }) {
         </div>
 
         <div className="flex flex-col gap-6">
-          <div className={`flex flex-row mx-12 ${isMobile?`justify-center`:`justify-between`}`}>
+          <div
+            className={`flex flex-row mx-12 ${
+              isMobile ? `justify-center` : `justify-between`
+            }`}
+          >
             <span className="text-white font-bold text-4xl p-4">
               {currentCategory.name}
             </span>
 
-              {!isMobile && (
-                <VolumeInput
-                  setVolume={setVolume}
-                  volume={volume}
-                  currentlyPlaying={currentlyPlaying}
-                ></VolumeInput>
-              )}
+            {!isMobile && (
+              <VolumeInput
+                setVolume={setVolume}
+                volume={volume}
+                currentlyPlaying={currentlyPlaying}
+              ></VolumeInput>
+            )}
           </div>
           <SongSwiper
             mobile={isMobile}
@@ -213,31 +229,32 @@ export default function Home({ preload }) {
             currentlyPlaying={currentlyPlaying}
             songs={currentCategory.songs}
           ></SongSwiper>
-          
+
           {isMobile && (
-                        <div className="flex justify-center">
-            <VolumeInput
-              setVolume={setVolume}
-              volume={volume}
-              currentlyPlaying={currentlyPlaying}
-            ></VolumeInput>
-          </div>
+            <div className="flex justify-center">
+              <VolumeInput
+                setVolume={setVolume}
+                volume={volume}
+                currentlyPlaying={currentlyPlaying}
+              ></VolumeInput>
+            </div>
           )}
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8">
-        {user ? (
+        {user !== null ? (
           <Chat></Chat>
-        ):(
-        <div className="flex justify-center">
-          <button
-            onClick={signInWithGoogle}
-            className="bg-white rounded-lg px-4 py-2"          >
-            Sign in to chat
-          </button>
-        </div>)};
-        
-
+        ) : (
+          <div className="flex justify-center">
+            <button
+              onClick={signInWithGoogle}
+              className="bg-white rounded-lg px-4 py-2"
+            >
+              Sign in to chat
+            </button>
+          </div>
+        )}
+        ;
       </div>
     </div>
   );
