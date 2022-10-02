@@ -19,8 +19,9 @@ import {
 } from "../components/Stores/Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { rtdb } from "./../utils/firebase";
-import { set, ref } from "firebase/database";
+import { set, ref, remove } from "firebase/database";
 import VolumeInput from "../components/VolumeInput/VolumeInput";
+import { useBeforeunload } from "react-beforeunload";
 //Options for caching:
 //Save to S3 After processing (I don't want to pay a penny)
 //Figure out a way to save it on vercel's cache (Should do it automatically)
@@ -116,6 +117,14 @@ export default function Home({ preload, props }) {
     const width = window.innerWidth;
     return width <= 600;
   };
+  const goOffline = (user) => {
+    if (user) {
+      remove(ref(rtdb, "online/" + user.uid));
+    }
+  };
+  useBeforeunload(() => {
+    goOffline(user);
+  });
 
   useEffect(() => {
     if (!checked) {
@@ -159,11 +168,10 @@ export default function Home({ preload, props }) {
       } else {
         dispatch(setUser(null));
         remove(ref(rtdb, "online/" + logInUser.uid));
-
       }
     });
     return () => {
-      remove(ref(rtdb, "online/" + user.uid));
+      goOffline(user);
     };
   }, []);
 
@@ -248,9 +256,9 @@ export default function Home({ preload, props }) {
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-4 mx-4 pb-8 h-screen">
-          <Chat signInWithGoogle={signInWithGoogle}></Chat>
-        
-        <div className="flex-row flex  py-4">
+        <Chat signInWithGoogle={signInWithGoogle}></Chat>
+
+        <div className={`${isMobile? `flex-col gap-8`:`flex-row`} flex py-4`}>
           <div className="flex flex-col w-full gap-8 items-center px-8 ">
             <span className="text-white font-bold text-4xl py-4 border-b-2">
               ¿Qué es OpenBootcamp?
@@ -262,9 +270,14 @@ export default function Home({ preload, props }) {
               formarte durante 12 meses en remoto a tu ritmo.
             </span>
           </div>
-          <div className="flex flex-col w-full gap-8 items-center border-l-2">
-            <a className="relative" target="_blank" rel="noreferrer" href="https://open-bootcamp.com/">
-              <div className=" h-96 w-96 overflow-hidden rounded-full animate-pulse">
+          <div className={`flex flex-col w-full gap-8 items-center ${!isMobile && `border-l-2`}`}>
+            <a
+              className="relative"
+              target="_blank"
+              rel="noreferrer"
+              href="https://open-bootcamp.com/"
+            >
+              <div className={`${isMobile?`h-80 w-80`:`h-96 w-96`} overflow-hidden rounded-full animate-pulse`}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900">
                   <path
                     fill="#161153"
