@@ -39,7 +39,12 @@ function OnlineList() {
                     <span className="text-white font-bold overflow-ellipsis">
                       {user.displayName}
                     </span>
+                    <div className="flex flex-row items-center gap-2">
                     <span className="text-gray-500 text-sm">Online</span>
+                    <div className=" w-2 h-2 bg-green-400 rounded-full">
+
+                    </div>
+                    </div>
                   </div>
                 </div>
               );
