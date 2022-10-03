@@ -74,6 +74,7 @@ export default function Home({ preload, props }) {
   };
   const logout = () => {
     auth.signOut();
+    goOffline(user);
   };
   const user = useSelector((state) => state.userSlice.user);
   const checked = useSelector((state) => state.userSlice.checked);
@@ -154,7 +155,7 @@ export default function Home({ preload, props }) {
     
    onAuthStateChanged(auth, (logInUser) => {
     console.log("Login event", logInUser);
-    if (logInUser && !user) {
+    if (logInUser) {
       const logUser = {
         email: logInUser.email.toString(),
         uid: logInUser.uid.toString(),
@@ -162,7 +163,7 @@ export default function Home({ preload, props }) {
         photoUrl: logInUser.photoURL.toString(),
       };
       console.log("User logging in", logUser);
-      // set(ref(rtdb, "online/" + logUser.uid), logUser);
+      set(ref(rtdb, "online/" + logUser.uid), logUser);
       console.log("User logged in", logUser);
       dispatch(setUser(logUser));
     } else {
