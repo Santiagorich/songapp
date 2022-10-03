@@ -68,14 +68,14 @@ export async function getStaticProps() {
 
 export default function Home({ preload, props }) {
   const dispatch = useDispatch();
-  // const signInWithGoogle = () => {
-  //   const provider = new GoogleAuthProvider();
-  //   signInWithPopup(auth, provider);
-  // };
-  // const logout = () => {
-  //   auth.signOut();
-  //   goOffline(user);
-  // };
+  const signInWithGoogle = () => {
+    // const provider = new GoogleAuthProvider();
+    // signInWithPopup(auth, provider);
+  };
+  const logout = () => {
+    // auth.signOut();
+    // goOffline(user);
+  };
   const user = useSelector((state) => state.userSlice.user);
   const checked = useSelector((state) => state.userSlice.checked);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
