@@ -7,8 +7,8 @@ function Header({ signInWithGoogle,logout }) {
   const user = useSelector((state) => state.userSlice.user);
 
   return (
-    <div className="relative bg-black-color">
-      <div className="mx-2 max-full px-4 sm:px-6">
+    <div className="bg-black-color">
+      <div className="mx-2 px-4 sm:px-6">
         <div className="flex items-center justify-between py-3 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:flex-1">
             <Link href="/">

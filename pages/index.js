@@ -22,6 +22,9 @@ import { rtdb } from "./../utils/firebase";
 import { set, ref, remove } from "firebase/database";
 import VolumeInput from "../components/VolumeInput/VolumeInput";
 import { useBeforeunload } from "react-beforeunload";
+import Image from "next/image";
+import { paths } from "../constants/paths";
+
 //Options for caching:
 //Save to S3 After processing (I don't want to pay a penny)
 //Figure out a way to save it on vercel's cache (Should do it automatically)
@@ -115,7 +118,7 @@ export default function Home({ preload, props }) {
 
   const checkMobile = () => {
     const width = window.innerWidth;
-    return width <= 600;
+    return width <= 1024;
   };
   const goOffline = (user) => {
     if (user) {
@@ -186,7 +189,7 @@ export default function Home({ preload, props }) {
       </Head>
       <Header signInWithGoogle={signInWithGoogle} logout={logout}></Header>
 
-      <div className="flex flex-col gap-4 mt-4 mx-4 pb-8 h-screen">
+      <div className="flex flex-col gap-4 mx-4 h-screen">
         <div className="flex flex-row py-2 overflow-hidden whitespace-nowrap relative fader select-none">
           <Swiper
             slidesPerView={isMobile ? 1 : 4}
@@ -255,13 +258,18 @@ export default function Home({ preload, props }) {
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-4 mt-4 mx-4 pb-8 h-screen">
+
+      <div className="h-screen">
+      <div className="flex flex-col gap-4 mx-4 h-2/4">
         <Chat signInWithGoogle={signInWithGoogle}></Chat>
-
-
       </div>
-      <div className={`${isMobile? `flex-col gap-8`:`flex-row`} flex py-4`}>
-          <div className="flex flex-col w-full gap-8 items-center px-8 ">
+      </div>
+
+      <div className="flex flex-row align-middle h-screen">
+        <div
+          className={`${isMobile ? `flex-col gap-8` : `flex-row`} flex py-4`}
+        >
+          <div className="flex flex-col w-full h-screen gap-8 items-center px-8 rounded-lg ">
             <span className="text-white font-bold text-4xl py-4 border-b-2">
               ¿Qué es OpenBootcamp?
             </span>
@@ -271,15 +279,64 @@ export default function Home({ preload, props }) {
               asumen el coste de tu formación una vez te contraten. Puedes
               formarte durante 12 meses en remoto a tu ritmo.
             </span>
+            {/* https://campus.open-bootcamp.com/register */}
+            {!isMobile && (
+              <div className="flex flex-col w-full h-2/3 gap-4 px-4">
+                <span className="text-gray-color-lighter font-bold text-lg">
+                  Elije una ruta:
+                </span>
+                <div className="flex flex-col w-full h-full gap-4 pr-2 overflow-auto  ">
+                  {paths.map((path, index) => (
+                    <a
+                    className="relative"
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://campus.open-bootcamp.com/register"
+                  >
+                    <div
+                      key={index}
+                      className="flex flex-row gap-4 p-6 bg-gray-color-light rounded-lg w-full h-fit items-center"
+                    >
+                      <div className="w-12 h-12 rounded-lg overflow-hidden">
+                        <Image
+                          src={path.src} //Not using loaders as i know the size i want
+                          objectFit="contain"
+                          width="100%"
+                          height="100%"
+                          alt={path.title}
+                        ></Image>
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-gray-color-lighter font-bold text-lg">
+                          {path.title}
+                        </span>
+                        <span className="text-gray-color-lighter text-md">
+                          {path.desc}
+                        </span>
+                      </div>
+                    </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-          <div className={`flex flex-col w-full gap-8 items-center ${!isMobile && `border-l-2`}`}>
+          <div
+            className={`flex flex-col w-full gap-8 items-center justify-center ${
+              !isMobile && `border-l-2`
+            }`}
+          >
             <a
               className="relative"
               target="_blank"
               rel="noreferrer"
               href="https://open-bootcamp.com/"
             >
-              <div className={`${isMobile?`h-80 w-80`:`h-96 w-96`} overflow-hidden rounded-full animate-pulse`}>
+              <div
+                className={`${
+                  isMobile ? `h-80 w-80` : `h-96 w-96`
+                } overflow-hidden rounded-full animate-pulse`}
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900">
                   <path
                     fill="#161153"
@@ -306,6 +363,7 @@ export default function Home({ preload, props }) {
             </a>
           </div>
         </div>
+      </div>
     </div>
   );
 }
