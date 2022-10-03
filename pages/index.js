@@ -5,7 +5,7 @@ import { getSongs } from "../utils/getSongs";
 import { categories } from "../constants/categories";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import Chat from "../components/Chat/Chat";
+import Chat from "../components/Chat/Chat";
 import { auth } from "../utils/firebase";
 import {
   GoogleAuthProvider,
@@ -170,16 +170,16 @@ export default function Home({ preload, props }) {
             photoUrl: logInUser.photoURL,
           })
         );
-      } else {
-        if(user){
-          remove(ref(rtdb, "online/" + user.uid));
-        dispatch(setUser(null));
-        }
-      }
+      // } else {
+      //   if(user){
+      //     remove(ref(rtdb, "online/" + user.uid));
+      //   dispatch(setUser(null));
+      //   }
+    }
     });
-    return () => {
-      goOffline(user);
-    };
+    // return () => {
+    //   goOffline(user);
+    // };
   }, []);
 
   return (
@@ -263,11 +263,11 @@ export default function Home({ preload, props }) {
           </div>
         
         
-          {/* <div className="h-screen w-full ">
+          <div className="h-screen w-full ">
           <div className="flex flex-col gap-4 px-4 w-full h-3/4">
           <Chat signInWithGoogle={signInWithGoogle}></Chat>
           </div>
-          </div> */}
+          </div>
        
           <div className="flex flex-row align-middle h-screen">
             <div
