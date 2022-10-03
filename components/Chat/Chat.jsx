@@ -89,15 +89,13 @@ function Chat({ signInWithGoogle }) {
         <span className="text-white font-bold text-2xl h-fit">Chat Global</span>
         <div
           ref={chatRef}
-          className={`h-full w-full bg-gray-color px-4 py-2 overflow-auto gap-4 flex flex-col  ${
-            user ? `fader-vertical-tb` : `fader-vertical-bt`
-          }`}
+          className={`h-full w-full bg-gray-color px-4 py-2 overflow-auto gap-4 flex flex-col  `}
         >
           {messages.map((message, index) => (
             <Message key={index} message={message}></Message>
           ))}
         </div>
-        <div class=" w-full flex justify-between items-center ">
+        <div className=" w-full flex justify-between items-center ">
           {user ? (
             <div
               className={`flex-grow py-2 px-4 mr-1 ${
@@ -134,7 +132,7 @@ function Chat({ signInWithGoogle }) {
           )}
           {user ? (
             <button
-              class="m-2 outline-none"
+              className="m-2 outline-none"
               onClick={() => {
                 sendMessage(textAreaState.value);
               }}

@@ -1,16 +1,18 @@
 import React from "react";
 import Song from "../Song/Song";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Lazy, Virtual, Navigation, Pagination } from "swiper";
+import SwiperCore, { Lazy, Virtual, Navigation, Pagination,Keyboard,Mousewheel } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/lazy";
+import "swiper/css/keyboard";
+import "swiper/css/virtual";
 import { useSelector } from "react-redux";
 
 function SongSwiper({ songs, currentlyPlaying, playSong, pauseSong }) {
   const mobile = useSelector((state) => state.userSlice.isMobile);
   var songChunks = [];
-  SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
+  SwiperCore.use([Lazy, Virtual, Navigation, Pagination,Keyboard,Mousewheel]);
   let steps = mobile ? 1 : 8;
   for (let i = 0; i < songs.length; i += steps) {
     songChunks.push(songs.slice(i, i + steps));
@@ -22,7 +24,9 @@ function SongSwiper({ songs, currentlyPlaying, playSong, pauseSong }) {
         spaceBetween={30}
         keyboard={{
           enabled: true,
+          onlyInViewport: true,
         }}
+      
         navigation={mobile ? false : true}
         lazy={true}
         virtual
