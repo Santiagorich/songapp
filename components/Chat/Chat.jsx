@@ -64,22 +64,23 @@ function Chat({ signInWithGoogle }) {
   };
 
   useEffect(() => {
-    // const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
-    //   const data = snapshot.val();
-    //   if (data) {
-    //     const messages = [];
-    //     Object.values(data).forEach((message) => {
-    //       messages.push(message);
-    //     });
-    //     setMessages(messages);
-    //   } else {
-    //     setMessages([]);
-    //   }
-    // });
+    const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
+      console.log("Received message data: ", snapshot.val());
+      const data = snapshot.val();
+      if (data) {
+        const messages = [];
+        Object.values(data).forEach((message) => {
+          messages.push(message);
+        });
+        setMessages(messages);
+      } else {
+        setMessages([]);
+      }
+    });
 
-    // return () => {
-    //   unsubscribeMessages();
-    // };
+    return () => {
+      unsubscribeMessages();
+    };
   }, []);
 
   return (

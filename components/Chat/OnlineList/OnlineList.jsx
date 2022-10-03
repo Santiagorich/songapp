@@ -6,22 +6,23 @@ function OnlineList() {
     const [onlineUsers, setOnlineUsers] = useState([]);
 
     useEffect(() => {
-      // const unsubscribeOnline = onValue(ref(rtdb, "online"), (snapshot) => {
-      //   const data = snapshot.val();
-      //   if (data) {
-      //     const users = [];
-      //     Object.values(data).forEach((user) => {
-      //       users.push(user);
-      //     });
-      //     console.log(users);
-      //     setOnlineUsers(users);
-      //   } else {
-      //     setOnlineUsers([]);
-      //   }
-      // });
-      // return () => {
-      //     unsubscribeOnline();
-      // }
+      const unsubscribeOnline = onValue(ref(rtdb, "online"), (snapshot) => {
+        console.log("Received online user data: ", snapshot.val());
+        const data = snapshot.val();
+        if (data) {
+          const users = [];
+          Object.values(data).forEach((user) => {
+            users.push(user);
+          });
+          console.log(users);
+          setOnlineUsers(users);
+        } else {
+          setOnlineUsers([]);
+        }
+      });
+      return () => {
+          unsubscribeOnline();
+      }
     }, [])
   return (
 <div

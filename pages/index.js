@@ -153,33 +153,23 @@ export default function Home({ preload, props }) {
     //   );
     // });
     onAuthStateChanged(auth, (logInUser) => {
-      console.log(logInUser);
-      console.log({
-        email: logInUser.email,
-        uid: logInUser.uid,
-        displayName: logInUser.displayName,
-        photoUrl: logInUser.photoURL,
-      });
+      console.log("Login event", logInUser);
       if (logInUser) {
-        set(ref(rtdb, "online/" + logInUser.uid), {
-          email: logInUser.email,
-          uid: logInUser.uid,
-          displayName: logInUser.displayName,
-          photoUrl: logInUser.photoURL,
-        });
-        dispatch(
-          setUser({
-            email: logInUser.email,
-            uid: logInUser.uid,
-            displayName: logInUser.displayName,
-            photoUrl: logInUser.photoURL,
-          })
-        );
+        const logUser = {
+          email: logInUser.email.toString(),
+          uid: logInUser.uid.toString(),
+          displayName: logInUser.displayName.toString(),
+          photoUrl: logInUser.photoURL.toString(),
+        };
+        console.log("User logging in", logUser);
+        set(ref(rtdb, "online/" + logUser.uid), logUser);
+        console.log("User logged in", logUser);
+        dispatch(setUser(logUser));
       } else {
-        if (user) {
-          remove(ref(rtdb, "online/" + user.uid));
-          dispatch(setUser(null));
-        }
+        console.log("User logging out");
+        goOffline(user);
+        console.log("User logged out");
+        dispatch(setUser(null));
       }
     });
     return () => {
@@ -265,11 +255,11 @@ export default function Home({ preload, props }) {
         </div>
       </div>
 
-      {/* <div className="h-screen w-full ">
+      <div className="h-screen w-full ">
         <div className="flex flex-col gap-4 px-4 w-full h-3/4">
           <Chat signInWithGoogle={signInWithGoogle}></Chat>
         </div>
-      </div> */}
+      </div>
 
       <div className="flex flex-row align-middle h-screen">
         <div
