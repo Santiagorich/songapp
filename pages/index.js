@@ -153,32 +153,32 @@ export default function Home({ preload, props }) {
     //     })
     //   );
     // });
-    // onAuthStateChanged(auth, (logInUser) => {
-    //   if (logInUser) {
-    //     set(ref(rtdb, "online/" + logInUser.uid), {
-    //       email: logInUser.email,
-    //       uid: logInUser.uid,
-    //       displayName: logInUser.displayName,
-    //       photoUrl: logInUser.photoURL,
-    //     });
-    //     dispatch(
-    //       setUser({
-    //         email: logInUser.email,
-    //         uid: logInUser.uid,
-    //         displayName: logInUser.displayName,
-    //         photoUrl: logInUser.photoURL,
-    //       })
-    //     );
-    //   } else {
-    //     if(user){
-    //       remove(ref(rtdb, "online/" + user.uid));
-    //     dispatch(setUser(null));
-    //     }
-    //   }
-    // });
-    // return () => {
-    //   goOffline(user);
-    // };
+    onAuthStateChanged(auth, (logInUser) => {
+      if (logInUser) {
+        set(ref(rtdb, "online/" + logInUser.uid), {
+          email: logInUser.email,
+          uid: logInUser.uid,
+          displayName: logInUser.displayName,
+          photoUrl: logInUser.photoURL,
+        });
+        dispatch(
+          setUser({
+            email: logInUser.email,
+            uid: logInUser.uid,
+            displayName: logInUser.displayName,
+            photoUrl: logInUser.photoURL,
+          })
+        );
+      } else {
+        if(user){
+          remove(ref(rtdb, "online/" + user.uid));
+        dispatch(setUser(null));
+        }
+      }
+    });
+    return () => {
+      goOffline(user);
+    };
   }, []);
 
   return (
