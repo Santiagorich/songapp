@@ -272,7 +272,8 @@ export default function Home({ preload, props }) {
               Un programa pionero en el que recibirás toda la formación que
               necesites hasta que encuentres un mejor empleo. Nuestras empresas
               asumen el coste de tu formación una vez te contraten. Puedes
-              formarte durante 12 meses en remoto a tu ritmo.
+              formarte durante 12 meses en remoto a tu ritmo. Y lo mas importante,
+              es <span className="text-white font-bold">100% Gratis</span>!
             </span>
             {/* https://campus.open-bootcamp.com/register */}
             {!isMobile && (
