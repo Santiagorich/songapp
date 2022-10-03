@@ -9,7 +9,7 @@ import OnlineList from "./OnlineList/OnlineList";
 function Chat({ signInWithGoogle }) {
   const [messages, setMessages] = useState([]);
   const dispatch = useDispatch();
-  const mobile =false;
+  const mobile = useSelector((state) => state.userSlice.isMobile);
   const [textAreaState, setTextAreaState] = useState({
     value: "",
     rows: 1,
@@ -67,11 +67,8 @@ function Chat({ signInWithGoogle }) {
     const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const messages = [];
-        Object.values(data).forEach((message) => {
-          messages.push(message);
-        });
-        setMessages(messages);
+      
+        setMessages(data);
       } else {
         setMessages([]);
       }
@@ -84,7 +81,7 @@ function Chat({ signInWithGoogle }) {
 
   return (
     <div className="flex flex-row bg-gray-color rounded-lg h-full w-full overflow-hidden ">
-      {!mobile && <OnlineList></OnlineList>}
+      {/* {!mobile && <OnlineList></OnlineList>}
       <div className="w-full h-full flex items-center p-4 flex-col m-2">
         <span className="text-white font-bold text-2xl h-fit">Chat Global</span>
         <div
@@ -151,7 +148,7 @@ function Chat({ signInWithGoogle }) {
             </button>
           ) : null}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
