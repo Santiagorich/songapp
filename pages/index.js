@@ -154,16 +154,22 @@ export default function Home({ preload, props }) {
     // });
     onAuthStateChanged(auth, (logInUser) => {
       if (logInUser) {
-        set(ref(rtdb, "online/" + logInUser.uid), {
-          email: logInUser.email,
-          
+        let email = logInUser.email;
+        let name = logInUser.displayName;
+        let photo = logInUser.photoURL;
+        let uid = logInUser.uid;
+        set(ref(rtdb, "online/" + uid), {
+          email: email,
+          uid: uid,
+          displayName: name,
+          photoUrl: photo,
         });
         dispatch(
           setUser({
-            email: logInUser.email,
-            uid: logInUser.uid,
-            displayName: logInUser.displayName,
-            photoUrl: logInUser.photoURL,
+            email: email,
+            uid: uid,
+            displayName: name,
+            photoUrl: photo,
           })
         );
       } else {
