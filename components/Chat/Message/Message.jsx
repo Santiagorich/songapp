@@ -10,7 +10,7 @@ function Message({ message }) {
     const date = new Date(timestamp);
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const time = `${hours}:${minutes}`;
+    const time = `${hours.toString().padStart(2,"0")}:${minutes.toString().padStart(2,"0")}`;
     return time;
   };
   useEffect(() => {
