@@ -75,6 +75,7 @@ export default function Home({ preload, props }) {
   const logout = () => {
     auth.signOut();
   };
+  const user = useSelector((state) => state.userSlice.user);
   const checked = useSelector((state) => state.userSlice.checked);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(preload);
@@ -124,14 +125,14 @@ export default function Home({ preload, props }) {
     }
   };
   useBeforeunload(() => {
-    // goOffline(user);
+    goOffline(user);
   });
 
   useEffect(() => {
-    if (!checked) {
-      dispatch(setMobile(checkMobile()));
-      dispatch(setChecked(true));
-    }
+    // if (!checked) {
+    //   dispatch(setMobile(checkMobile()));
+    //   dispatch(setChecked(true));
+    // }
     if (window) {
       window.addEventListener("resize", () => {
         dispatch(setMobile(checkMobile()));
@@ -151,28 +152,28 @@ export default function Home({ preload, props }) {
     //   );
     // });
     
-   
+    onAuthStateChanged(auth, (logInUser) => {
+      console.log("Login event", logInUser);
+      if (logInUser) {
+        const logUser = {
+          email: logInUser.email.toString(),
+          uid: logInUser.uid.toString(),
+          displayName: logInUser.displayName.toString(),
+          photoUrl: logInUser.photoURL.toString(),
+        };
+        console.log("User logging in", logUser);
+        set(ref(rtdb, "online/" + logUser.uid), logUser);
+        console.log("User logged in", logUser);
+        dispatch(setUser(logUser));
+      } else {
+        console.log("User logging out");
+        goOffline(user);
+        console.log("User logged out");
+        dispatch(setUser(null));
+      }
+    });
   }, []);
-  onAuthStateChanged(auth, (logInUser) => {
-    console.log("Login event", logInUser);
-    if (logInUser) {
-      const logUser = {
-        email: logInUser.email.toString(),
-        uid: logInUser.uid.toString(),
-        displayName: logInUser.displayName.toString(),
-        photoUrl: logInUser.photoURL.toString(),
-      };
-      console.log("User logging in", logUser);
-      set(ref(rtdb, "online/" + logUser.uid), logUser);
-      console.log("User logged in", logUser);
-      dispatch(setUser(logUser));
-    } else {
-      console.log("User logging out");
-      // goOffline(user);
-      console.log("User logged out");
-      dispatch(setUser(null));
-    }
-  });
+  
   return (
     <div>
       <Head>
