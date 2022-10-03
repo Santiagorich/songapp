@@ -67,10 +67,11 @@ function Chat({ signInWithGoogle }) {
     const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
       const data = snapshot.val();
       if (data) {
-      
-        setMessages(data);
-      } else {
-        setMessages([]);
+        const messages = [];
+        Object.values(data).forEach((message) => {
+          messages.push(message);
+        });
+        setMessages(messages);
       }
     });
 
