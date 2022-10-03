@@ -122,7 +122,7 @@ export default function Home({ preload, props }) {
   };
   const goOffline = (user) => {
     if (user) {
-      remove(ref(rtdb, "online/" + user.uid));
+      // remove(ref(rtdb, "online/" + user.uid));
     }
   };
   useBeforeunload(() => {
@@ -155,7 +155,6 @@ export default function Home({ preload, props }) {
     onAuthStateChanged(auth, (logInUser) => {
       
       if (logInUser) {
-        
         // set(ref(rtdb, "online/" + logInUser.uid), {
         //   email: logInUser.email,
         //   uid: logInUser.uid,
@@ -172,7 +171,7 @@ export default function Home({ preload, props }) {
         );
       } else {
         if (user) {
-          remove(ref(rtdb, "online/" + user.uid));
+          // remove(ref(rtdb, "online/" + user.uid));
           dispatch(setUser(null));
         }
       }
