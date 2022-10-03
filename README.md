@@ -2,7 +2,7 @@
 
 App that displays trending music at the moment, always updated and it needs to be blazingly fast
 
-Move quickly and test that speed out!
+Move quickly and test that speed out! (You can use the keyboard for the songs)
 
 PD: I like how it looks with fullscreen!
 
