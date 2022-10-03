@@ -286,13 +286,13 @@ export default function Home({ preload, props }) {
                 <div className="flex flex-col w-full h-full gap-4 pr-2 overflow-auto  ">
                   {paths.map((path, index) => (
                     <a
+                    key={index}
                     className="relative"
                     target="_blank"
                     rel="noreferrer"
                     href="https://campus.open-bootcamp.com/register"
                   >
                     <div
-                      key={index}
                       className="flex flex-row gap-4 p-6 bg-gray-color-light rounded-lg w-full h-fit items-center"
                     >
                       <div className="w-12 h-12 rounded-lg overflow-hidden">
