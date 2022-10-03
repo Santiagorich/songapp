@@ -10,7 +10,7 @@ body {
 }
 
 .red-color {
-    background-color: #FF0000;
+    background-color: #ff0000;
 }
 
 .shadow-red {
@@ -22,6 +22,34 @@ body {
 }
 
 .fader {
-    mask-image: linear-gradient(to right, black calc(100% - 100px), transparent 100%);
-    mask-image: linear-gradient(to left, black calc(100% - 100px), transparent 100%);
+    mask-image: linear-gradient( to right, black calc(100% - 100px), transparent 100%);
+    mask-image: linear-gradient( to left, black calc(100% - 100px), transparent 100%);
+}
+
+.fader-vertical-tb {
+    mask-image: linear-gradient( to bottom, black calc(100% - 100px), transparent 100%);
+    mask-image: linear-gradient( to top, black calc(100% - 100px), transparent 100%);
+}
+
+.fader-vertical-bt {
+    mask-image: linear-gradient( to top, black calc(100% - 100px), transparent 100%);
+    mask-image: linear-gradient( to bottom, black calc(100% - 100px), transparent 100%);
+}
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
 }
