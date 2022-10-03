@@ -155,7 +155,7 @@ export default function Home({ preload, props }) {
     
    onAuthStateChanged(auth, (logInUser) => {
     console.log("Login event", logInUser);
-    if (logInUser) {
+    if (logInUser && !user) {
       const logUser = {
         email: logInUser.email.toString(),
         uid: logInUser.uid.toString(),
