@@ -84,7 +84,7 @@ function Chat({ signInWithGoogle }) {
 
   return (
     <div className="flex flex-row bg-gray-color rounded-lg h-full w-full overflow-hidden ">
-      {/* {!mobile && <OnlineList></OnlineList>} */}
+      {!mobile && <OnlineList></OnlineList>}
       <div className="w-full h-full flex items-center p-4 flex-col m-2">
         <span className="text-white font-bold text-2xl h-fit">Chat Global</span>
         <div
