@@ -1,7 +1,7 @@
 import { onValue, push, ref } from "firebase/database";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { db, rtdb } from "../../utils/firebase";
+// import { db, rtdb } from "../../utils/firebase";
 import { setLastMsg } from "../Stores/Slices/userSlice";
 import Message from "./Message/Message";
 import OnlineList from "./OnlineList/OnlineList";
@@ -63,25 +63,25 @@ function Chat({ signInWithGoogle }) {
     }));
   };
 
-  useEffect(() => {
-    const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
-      console.log("Received message data: ", snapshot.val());
-      const data = snapshot.val();
-      if (data) {
-        const messages = [];
-        Object.values(data).forEach((message) => {
-          messages.push(message);
-        });
-        setMessages(messages);
-      } else {
-        setMessages([]);
-      }
-    });
+  // useEffect(() => {
+  //   const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
+  //     console.log("Received message data: ", snapshot.val());
+  //     const data = snapshot.val();
+  //     if (data) {
+  //       const messages = [];
+  //       Object.values(data).forEach((message) => {
+  //         messages.push(message);
+  //       });
+  //       setMessages(messages);
+  //     } else {
+  //       setMessages([]);
+  //     }
+  //   });
 
-    return () => {
-      unsubscribeMessages();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribeMessages();
+  //   };
+  // }, []);
 
   return (
     <div className="flex flex-row bg-gray-color rounded-lg h-full w-full overflow-hidden ">
