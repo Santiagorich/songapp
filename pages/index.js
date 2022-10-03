@@ -126,6 +126,7 @@ export default function Home({ preload, props }) {
     }
   };
   useBeforeunload(() => {
+    console.log("unloading");
     goOffline(user);
   });
 
@@ -171,6 +172,8 @@ export default function Home({ preload, props }) {
           })
         );
       } else {
+        console.log("No login");
+        console.log(logInUser);
         if (user) {
           remove(ref(rtdb, "online/" + user.uid));
           dispatch(setUser(null));
