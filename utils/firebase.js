@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 const firebaseConfig = {
-  apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
+  apiKey: `AIzaSyDnA9QtKamIr6w2b6qgT_VGqQI9i_FUQLM`,
   authDomain: "acvhelper-93c1a.firebaseapp.com",
   databaseURL: "https://acvhelper-93c1a-default-rtdb.firebaseio.com",
   projectId: "acvhelper-93c1a",
