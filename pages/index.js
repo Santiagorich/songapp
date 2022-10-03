@@ -191,7 +191,7 @@ export default function Home({ preload, props }) {
           <Swiper
             slidesPerView={isMobile ? 1 : 4}
             spaceBetween={0}
-            navigation={isMobile? false:true}
+            navigation={true}
             followFinger={true}
             allowTouchMove={true}
           >
