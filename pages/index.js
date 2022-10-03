@@ -75,7 +75,6 @@ export default function Home({ preload, props }) {
   const logout = () => {
     auth.signOut();
   };
-  const user = useSelector((state) => state.userSlice.user);
   const checked = useSelector((state) => state.userSlice.checked);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(preload);
@@ -125,7 +124,7 @@ export default function Home({ preload, props }) {
     }
   };
   useBeforeunload(() => {
-    goOffline(user);
+    // goOffline(user);
   });
 
   useEffect(() => {
@@ -169,7 +168,7 @@ export default function Home({ preload, props }) {
       dispatch(setUser(logUser));
     } else {
       console.log("User logging out");
-      goOffline(user);
+      // goOffline(user);
       console.log("User logged out");
       dispatch(setUser(null));
     }
