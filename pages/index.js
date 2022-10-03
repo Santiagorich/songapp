@@ -187,13 +187,14 @@ export default function Home({ preload, props }) {
       <Header signInWithGoogle={signInWithGoogle} logout={logout}></Header>
 
       <div className="flex flex-col gap-4 mx-4 h-screen mb-10">
-        <div className="flex flex-row flex-shrink-0 py-2 overflow-hidden whitespace-nowrap relative fader select-none">
+        <div className={`flex flex-row flex-shrink-0 py-2 overflow-hidden whitespace-nowrap relative ${isMobile?``:`fader`} select-none`}>
           <Swiper
             slidesPerView={isMobile ? 1 : 4}
             spaceBetween={0}
             navigation={true}
             followFinger={true}
             allowTouchMove={true}
+            loop={true}
           >
             {categories.map((category, index) => (
               <SwiperSlide key={index} className="flex justify-center">
