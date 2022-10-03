@@ -294,18 +294,17 @@ export default function Home({ preload, props }) {
                       {paths.map((path, index) => (
                         <a
                           key={index}
-                          className="relative"
                           target="_blank"
                           rel="noreferrer"
                           href="https://campus.open-bootcamp.com/register"
+                          aria-label="Open Bootcamp"
                         >
                           <div className="flex flex-row gap-4 p-6 bg-gray-color-light rounded-lg w-full h-fit items-center">
-                            <div className="w-12 h-12 rounded-lg overflow-hidden">
+                            <div className="w-12 h-12 rounded-lg overflow-hidden relative">
                               <Image
                                 src={path.src} //Not using loaders as i know the size i want
                                 objectFit="contain"
-                                width="100%"
-                                height="100%"
+                                layout="fill"
                                 alt={path.title}
                               ></Image>
                             </div>
