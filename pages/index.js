@@ -259,10 +259,8 @@ export default function Home({ preload, props }) {
         </div>
       </div>
 
-      <div className="h-screen">
-      <div className="flex flex-col gap-4 mx-4 h-2/4">
+      <div className="flex flex-col gap-4 mx-4 h-screen">
         <Chat signInWithGoogle={signInWithGoogle}></Chat>
-      </div>
       </div>
 
       <div className="flex flex-row align-middle h-screen">
