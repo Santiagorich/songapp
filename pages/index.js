@@ -158,12 +158,13 @@ export default function Home({ preload, props }) {
         let name = logInUser.displayName;
         let photo = logInUser.photoURL;
         let uid = logInUser.uid;
-        set(ref(rtdb, "online/" + uid), {
-          email: email,
-          uid: uid,
-          displayName: name,
-          photoUrl: photo,
-        });
+        // set(ref(rtdb, "online/" + uid), {
+        //   email: email,
+        //   uid: uid,
+        //   displayName: name,
+        //   photoUrl: photo,
+        // });
+        ref(rtdb, "online/" + uid)
         dispatch(
           setUser({
             email: email,
