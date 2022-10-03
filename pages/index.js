@@ -156,12 +156,12 @@ export default function Home({ preload, props }) {
       
       if (logInUser) {
         
-        set(ref(rtdb, "online/" + logInUser.uid), {
-          email: logInUser.email,
-          uid: logInUser.uid,
-          displayName: logInUser.displayName,
-          photoUrl: logInUser.photoURL,
-        });
+        // set(ref(rtdb, "online/" + logInUser.uid), {
+        //   email: logInUser.email,
+        //   uid: logInUser.uid,
+        //   displayName: logInUser.displayName,
+        //   photoUrl: logInUser.photoURL,
+        // });
         dispatch(
           setUser({
             email: logInUser.email,
