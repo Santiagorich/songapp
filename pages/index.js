@@ -163,7 +163,7 @@ export default function Home({ preload, props }) {
         console.log("User logging in", logUser);
         set(ref(rtdb, "online/" + logUser.uid), logUser);
         console.log("User logged in", logUser);
-        dispatch(setUser(logUser));
+        // dispatch(setUser(logUser));
       } else {
         console.log("User logging out");
         goOffline(user);
