@@ -152,7 +152,7 @@ export default function Home({ preload, props }) {
     //     })
     //   );
     // });
-    onAuthStateChanged(auth, (logInUser) => {
+    onAuthStateChanged(auth, async (logInUser) => {
       console.log("Login event", logInUser);
       if (logInUser) {
         const logUser = {
@@ -164,7 +164,7 @@ export default function Home({ preload, props }) {
         console.log("User logging in", logUser);
         const userref = ref(rtdb, "online/" + logUser.uid)
         console.log("UserRef created", userref);
-        set(userref, logUser);
+        await set(userref, logUser);
         console.log("User logged in", logUser);
         dispatch(setUser(logUser));
       } else {
