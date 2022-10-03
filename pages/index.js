@@ -164,7 +164,7 @@ export default function Home({ preload, props }) {
         console.log("User logging in", logUser);
         const userref = ref(rtdb, "online/" + logUser.uid)
         console.log("UserRef created", userref);
-        await set(userref, logUser);
+        set(userref, {name: "a"});
         console.log("User logged in", logUser);
         dispatch(setUser(logUser));
       } else {
