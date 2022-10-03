@@ -6,6 +6,8 @@ Move quickly and test that speed out! (You can use the keyboard for the songs)
 
 PD: I like how it looks with fullscreen and on phone!
 
+You can listen a preview of each song clicking on it and you can use the Youtube Music button to go to the full song
+
 # Tech
 
 NextJS,React,TailwindCSS and Vercel for hosting
@@ -13,6 +15,8 @@ NextJS,React,TailwindCSS and Vercel for hosting
 # Extras
 
 -SSR + Lazy loading techniques to improve Lighthouse score, UX and accesibility (Aprox 100% score)
+
+-Image Optimizer
 
 -Responsive SSG
 
