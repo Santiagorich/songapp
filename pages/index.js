@@ -153,7 +153,13 @@ export default function Home({ preload, props }) {
     //   );
     // });
     onAuthStateChanged(auth, (logInUser) => {
-      
+      console.log(logInUser);
+      console.log({
+        email: logInUser.email,
+        uid: logInUser.uid,
+        displayName: logInUser.displayName,
+        photoUrl: logInUser.photoURL,
+      });
       if (logInUser) {
         set(ref(rtdb, "online/" + logInUser.uid), {
           email: logInUser.email,
