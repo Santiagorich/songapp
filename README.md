@@ -12,8 +12,8 @@ NextJS,React,TailwindCSS and Vercel for hosting
 
 # Extras
 
-SSR + Lazy loading techniques to improve Lighthouse score, UX and accesibility
-
+SSR + Lazy loading techniques to improve Lighthouse score, UX and accesibility (Aprox 100% score)
+Responsive SSG
 Firebase Real Time Database for the chat and for the online user list
 
 # How to use 

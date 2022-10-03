@@ -5,15 +5,15 @@ import { getSongs } from "../utils/getSongs";
 import { categories } from "../constants/categories";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Chat from "../components/Chat/Chat";
-import { auth,rtdb } from "../utils/firebase";
+// import Chat from "../components/Chat/Chat";
+// import { auth,rtdb } from "../utils/firebase";
+// import {
+//   GoogleAuthProvider,
+//   onAuthStateChanged,
+//   signInWithPopup,
+// } from "firebase/auth";
 import {
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-} from "firebase/auth";
-import {
-  setUser,
+  // setUser,
   setMobile,
   setChecked,
 } from "../components/Stores/Slices/userSlice";
@@ -68,14 +68,14 @@ export async function getStaticProps() {
 
 export default function Home({ preload, props }) {
   const dispatch = useDispatch();
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
-  };
-  const logout = () => {
-    auth.signOut();
-    goOffline(user);
-  };
+  // const signInWithGoogle = () => {
+  //   const provider = new GoogleAuthProvider();
+  //   signInWithPopup(auth, provider);
+  // };
+  // const logout = () => {
+  //   auth.signOut();
+  //   goOffline(user);
+  // };
   const user = useSelector((state) => state.userSlice.user);
   const checked = useSelector((state) => state.userSlice.checked);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
