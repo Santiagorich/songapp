@@ -6,7 +6,7 @@ import { categories } from "../constants/categories";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Chat from "../components/Chat/Chat";
-import { auth } from "../utils/firebase";
+import { auth,app } from "../utils/firebase";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -18,8 +18,7 @@ import {
   setChecked,
 } from "../components/Stores/Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { rtdb } from "./../utils/firebase";
-import { set, ref, remove } from "firebase/database";
+import { set, ref, remove, getDatabase } from "firebase/database";
 import VolumeInput from "../components/VolumeInput/VolumeInput";
 import { useBeforeunload } from "react-beforeunload";
 import Image from "next/image";
@@ -68,6 +67,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({ preload, props }) {
+  const rtdb = getDatabase(app);
   const dispatch = useDispatch();
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -152,7 +152,7 @@ export default function Home({ preload, props }) {
     //     })
     //   );
     // });
-    onAuthStateChanged(auth, async (logInUser) => {
+    onAuthStateChanged(auth, (logInUser) => {
       console.log("Login event", logInUser);
       if (logInUser) {
         const logUser = {
@@ -162,9 +162,7 @@ export default function Home({ preload, props }) {
           photoUrl: logInUser.photoURL.toString(),
         };
         console.log("User logging in", logUser);
-        const userref = ref(rtdb, "online/123");
-        console.log("UserRef created", userref);
-        set(userref, logUser);
+        set(ref(rtdb, "online/" + logUser.uid), logUser);
         console.log("User logged in", logUser);
         dispatch(setUser(logUser));
       } else {
