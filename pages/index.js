@@ -193,8 +193,8 @@ export default function Home({ preload, props }) {
       <Header signInWithGoogle={signInWithGoogle} logout={logout}></Header>
      
         
-          <div className="flex flex-col gap-4 mx-4 h-screen">
-            <div className="flex flex-row py-2 overflow-hidden whitespace-nowrap relative fader select-none">
+          <div className="flex flex-col gap-4 mx-4 h-screen mb-10">
+            <div className="flex flex-row flex-shrink-0 py-2 overflow-hidden whitespace-nowrap relative fader select-none">
               <Swiper
                 slidesPerView={isMobile ? 1 : 4}
                 spaceBetween={0}
