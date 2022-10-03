@@ -1,32 +1,25 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
+import { Triangle } from "react-loader-spinner";
+import { useSelector } from 'react-redux';
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
-  const [ytLink, setYtLink] = useState();
+  const [ytLink, setYtLink] = useState(
+    `https://music.youtube.com/search?q=${encodeURI(
+      song.title + " - " + song.artist
+    )}`
+  );
+  const mobile = useSelector((state) => state.userSlice.isMobile);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setYtLink(
-      `https://music.youtube.com/search?q=${encodeURI(
-        song.title + " - " + song.artist
-      )}`
-    );
-    fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
-      .then((response) => response.text())
-      .then((data) => {
-        setYtLink("https://music.youtube.com/watch?v=" + data);
-      });
+    return () => {
+      setLoading(true);
+    };
   }, [song]);
 
   return (
-    <div
-      style={{
-        width: "18.75em",
-        height: "18.75em",
-        backgroundImage: `url(${song.thumbnail})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-      className="rounded-2xl w-64 h-64 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group"
+    <div // I rather use the same var for mobile everywhere than set them with tailwind's breakpoints
+      className={`rounded-2xl w-72 h-72 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group`}
       onClick={(e) => {
         let audio = song.song;
         if (currentlyPlaying && currentlyPlaying.src == audio) {
@@ -37,15 +30,53 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         }
       }}
     >
+      {loading && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center">
+          <Triangle
+            height="80"
+            width="80"
+            color="#b91c1c"
+            ariaLabel="triangle-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+          />
+        </div>
+      )}
+      <div
+        style={{
+          backgroundImage: `url(/api/imageFetcher?url=${song.thumbnail}&type=thumbnail)`,
+        }}
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
+      ></div>
       {/* <Image
         layout="fill"
-        //src={`/api/imageFetcher?url=${encodeURIComponent(song.image)}`}
-        src={song.image}
+        src={`/api/imageFetcher?url=${encodeURIComponent(
+          song.thumbnail
+        )}&type=thumbnail`} //Not using loaders as i know the size i want
+        className={`absolute z-0 ${loading ? `invisible` : ``}`}
+        objectFit="cover"
+        alt={song.title}
+        onLoadingComplete={() => {
+          setLoading(false);
+        }}
+      ></Image> */}
+      <Image
+        layout="fill"
+        src={`/api/imageFetcher?url=${encodeURIComponent(
+          song.image
+        )}&type=cover`} //Not using loaders as i know the size i want
         className="absolute z-0"
         objectFit="cover"
         alt={song.title}
         placeholder="empty"
-      ></Image> */}
+        onLoadingComplete={() => {
+          if (loading) {
+            setLoading(false);
+          }
+        }}
+      ></Image>
+
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center text-white flex z-20">
         {currentlyPlaying && currentlyPlaying.src == song.song ? (
           <div>
@@ -81,29 +112,39 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       </div>
 
       <div className="flex flex-col px-4 py-6 -mt-5 w-full relative">
-        {/* <Image
+        <Image
           layout="fill"
-          src={`/RedPaint.png`}
+          src={`/api/imageFetcher?url=RedPaint.png&type=original`} //Not using loaders as i know the size i want
           className="absolute z-0"
           objectFit="cover"
           alt={song.title}
           loading="eager"
-        ></Image> */}
-        <span className="text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10">
+        ></Image>
+
+        <span className={`text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10`}>
           {song.number}. {song.title}
         </span>
         <span className="text-white z-10">{song.artist}</span>
       </div>
-      <a
+      <button
         onClick={(e) => {
           e.stopPropagation();
           pauseSong();
+          fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
+            .then((response) => response.text())
+            .then((data) => {
+              window.open(
+                "https://music.youtube.com/watch?v=" + data,
+                "_blank",
+                "noopener,noreferrer"
+              );
+            })
+            .catch((err) => {
+              window.open(ytLink, "_blank", "noopener,noreferrer");
+            });
         }}
         className="absolute bottom-3 left-3"
         aria-label={song.title + " - " + song.artist}
-        target="_blank"
-        rel="noreferrer"
-        href={ytLink}
       >
         <div className="flex flex-row gap-3">
           <div className="flex hover:bg-red-700 rounded-2xl py-1 px-2 ">
@@ -136,7 +177,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
             </svg>
           </div>
         </div>
-      </a>
+      </button>
     </div>
   );
 }
