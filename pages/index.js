@@ -5,7 +5,7 @@ import { getSongs } from "../utils/getSongs";
 import { categories } from "../constants/categories";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Chat from "../components/Chat/Chat";
+// import Chat from "../components/Chat/Chat";
 import { auth } from "../utils/firebase";
 import {
   GoogleAuthProvider,
