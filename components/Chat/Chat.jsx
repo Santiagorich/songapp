@@ -64,25 +64,27 @@ function Chat({ signInWithGoogle }) {
   };
 
   useEffect(() => {
-    const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const messages = [];
-        Object.values(data).forEach((message) => {
-          messages.push(message);
-          console.log(message);
-        });
-      }
-    });
+    // const unsubscribeMessages = onValue(ref(rtdb, "messages"), (snapshot) => {
+    //   const data = snapshot.val();
+    //   if (data) {
+    //     const messages = [];
+    //     Object.values(data).forEach((message) => {
+    //       messages.push(message);
+    //     });
+    //     setMessages(messages);
+    //   } else {
+    //     setMessages([]);
+    //   }
+    // });
 
-    return () => {
-      unsubscribeMessages();
-    };
+    // return () => {
+    //   unsubscribeMessages();
+    // };
   }, []);
 
   return (
     <div className="flex flex-row bg-gray-color rounded-lg h-full w-full overflow-hidden ">
-      {!mobile && <OnlineList></OnlineList>}
+      {/* {!mobile && <OnlineList></OnlineList>}
       <div className="w-full h-full flex items-center p-4 flex-col m-2">
         <span className="text-white font-bold text-2xl h-fit">Chat Global</span>
         <div
@@ -149,7 +151,7 @@ function Chat({ signInWithGoogle }) {
             </button>
           ) : null}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
