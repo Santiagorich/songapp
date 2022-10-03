@@ -9,7 +9,7 @@ import OnlineList from "./OnlineList/OnlineList";
 function Chat({ signInWithGoogle }) {
   const [messages, setMessages] = useState([]);
   const dispatch = useDispatch();
-  const mobile = useSelector((state) => state.userSlice.isMobile);
+  const mobile =false;
   const [textAreaState, setTextAreaState] = useState({
     value: "",
     rows: 1,

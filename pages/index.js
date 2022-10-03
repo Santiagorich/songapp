@@ -143,7 +143,6 @@ export default function Home({ preload, props }) {
     categories.map(async (category) => {
       fetchSongs(category.category);
     });
-    console.log("Mounted");
     // categories.map(async (category) => {
     //   let songRes = await fetchSongs(category.category);
     //   await Promise.all(
@@ -170,16 +169,16 @@ export default function Home({ preload, props }) {
             photoUrl: logInUser.photoURL,
           })
         );
-      // } else {
-      //   if(user){
-      //     remove(ref(rtdb, "online/" + user.uid));
-      //   dispatch(setUser(null));
-      //   }
-    }
+      } else {
+        if(user){
+          remove(ref(rtdb, "online/" + user.uid));
+        dispatch(setUser(null));
+        }
+      }
     });
-    // return () => {
-    //   goOffline(user);
-    // };
+    return () => {
+      goOffline(user);
+    };
   }, []);
 
   return (
