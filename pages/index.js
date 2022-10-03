@@ -6,7 +6,7 @@ import { categories } from "../constants/categories";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Chat from "../components/Chat/Chat";
-import { auth,app } from "../utils/firebase";
+import { auth,rtdb } from "../utils/firebase";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -18,7 +18,7 @@ import {
   setChecked,
 } from "../components/Stores/Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { set, ref, remove, getDatabase } from "firebase/database";
+import { set, ref, remove } from "firebase/database";
 import VolumeInput from "../components/VolumeInput/VolumeInput";
 import { useBeforeunload } from "react-beforeunload";
 import Image from "next/image";
@@ -67,7 +67,6 @@ export async function getStaticProps() {
 }
 
 export default function Home({ preload, props }) {
-  const rtdb = getDatabase(app);
   const dispatch = useDispatch();
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
