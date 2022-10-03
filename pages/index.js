@@ -6,6 +6,7 @@ import { categories } from "../constants/categories";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Chat from "../components/Chat/Chat";
+import { auth,rtdb } from "../utils/firebase";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -22,25 +23,6 @@ import VolumeInput from "../components/VolumeInput/VolumeInput";
 import { useBeforeunload } from "react-beforeunload";
 import Image from "next/image";
 import { paths } from "../constants/paths";
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getDatabase } from "firebase/database";
-const firebaseConfig = {
-  apiKey: "AIzaSyBDHcDxbe1oFJQzIVfOcYN4Mjs7OlwNaFk",
-  authDomain: "acvhelper-93c1a.firebaseapp.com",
-  databaseURL: "https://acvhelper-93c1a-default-rtdb.firebaseio.com",
-  projectId: "acvhelper-93c1a",
-  storageBucket: "acvhelper-93c1a.appspot.com",
-  messagingSenderId: "651177855214",
-  appId: "1:651177855214:web:fae2ebecb683cac3900bff",
-  measurementId: "G-VWZCWWF1YC"
-};
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
- const auth = getAuth(app);
- const db = getFirestore(app);
- const rtdb = getDatabase(app);
 
 //Options for caching:
 //Save to S3 After processing (I don't want to pay a penny)
@@ -271,11 +253,11 @@ export default function Home({ preload, props }) {
         </div>
       </div>
 
-      <div className="h-screen w-full ">
+      {/* <div className="h-screen w-full ">
         <div className="flex flex-col gap-4 px-4 w-full h-3/4">
           <Chat signInWithGoogle={signInWithGoogle}></Chat>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex flex-row align-middle h-screen">
         <div

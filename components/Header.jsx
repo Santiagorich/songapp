@@ -42,7 +42,7 @@ function Header({ signInWithGoogle,logout }) {
             </svg>
             <span className="text-gray-300 font-bold">GitHub</span>
           </a>
-          {(user?.photoUrl) ? (
+          {/* {(user?.photoUrl) ? (
             <img
               src={user.photoUrl}
               alt="user"
@@ -56,7 +56,7 @@ function Header({ signInWithGoogle,logout }) {
             >
               Log In
             </button>
-          )}
+          )} */}
           {/* <nav className="hidden space-x-10 md:flex">
             <Link href="/AdminPage">
               <a className="text-base font-medium text-gray-300 hover:text-white">
