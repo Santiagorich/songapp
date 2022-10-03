@@ -26,3 +26,6 @@ NextJS,React,TailwindCSS and Vercel for hosting
 2. Run it
 `npm run dev`
 
+# Removed
+
+![chat](https://media.discordapp.net/attachments/1022608864316768266/1026524558511050842/unknown.png?width=1080&height=467)
