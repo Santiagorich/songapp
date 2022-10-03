@@ -126,7 +126,6 @@ export default function Home({ preload, props }) {
     }
   };
   useBeforeunload(() => {
-    console.log("unloading");
     goOffline(user);
   });
 
@@ -155,14 +154,12 @@ export default function Home({ preload, props }) {
     // });
     onAuthStateChanged(auth, (logInUser) => {
       if (logInUser) {
-        console.log("User is logged in");
-        console.log(logInUser);
-        set(ref(rtdb, "online/" + logInUser.uid), {
-          email: logInUser.email,
-          uid: logInUser.uid,
-          displayName: logInUser.displayName,
-          photoUrl: logInUser.photoURL,
-        });
+        // set(ref(rtdb, "online/" + logInUser.uid), {
+        //   email: logInUser.email,
+        //   uid: logInUser.uid,
+        //   displayName: logInUser.displayName,
+        //   photoUrl: logInUser.photoURL,
+        // });
         dispatch(
           setUser({
             email: logInUser.email,
@@ -172,8 +169,6 @@ export default function Home({ preload, props }) {
           })
         );
       } else {
-        console.log("No login");
-        console.log(logInUser);
         if (user) {
           remove(ref(rtdb, "online/" + user.uid));
           dispatch(setUser(null));
