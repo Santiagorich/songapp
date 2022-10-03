@@ -131,10 +131,10 @@ export default function Home({ preload, props }) {
   });
 
   useEffect(() => {
-    // if (!checked) {
-    //   dispatch(setMobile(checkMobile()));
-    //   dispatch(setChecked(true));
-    // }
+    if (!checked) {
+      dispatch(setMobile(checkMobile()));
+      dispatch(setChecked(true));
+    }
     if (window) {
       window.addEventListener("resize", () => {
         dispatch(setMobile(checkMobile()));
