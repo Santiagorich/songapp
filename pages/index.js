@@ -263,11 +263,11 @@ export default function Home({ preload, props }) {
           </div>
         
         
-          <div className="h-screen w-full ">
+          {/* <div className="h-screen w-full ">
           <div className="flex flex-col gap-4 px-4 w-full h-3/4">
           <Chat signInWithGoogle={signInWithGoogle}></Chat>
           </div>
-          </div>
+          </div> */}
        
           <div className="flex flex-row align-middle h-screen">
             <div
