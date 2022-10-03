@@ -21,10 +21,14 @@ const userSlice = createSlice({
       state.lastMsg = action.payload;
       return state;
     },
+    setChecked: (state, action) => {
+      state.checked = action.payload;
+      return state;
+    }
 
   },
 });
 
-export const { setUser,setMobile,setLastMsg } = userSlice.actions;
+export const { setUser,setMobile,setLastMsg,setChecked } = userSlice.actions;
 
 export default userSlice.reducer;
