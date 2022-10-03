@@ -162,7 +162,9 @@ export default function Home({ preload, props }) {
           photoUrl: logInUser.photoURL.toString(),
         };
         console.log("User logging in", logUser);
-        set(ref(rtdb, "online/" + logUser.uid), logUser);
+        const userref = ref(rtdb, "online/" + logUser.uid)
+        console.log("UserRef created", userref);
+        set(userref, logUser);
         console.log("User logged in", logUser);
         dispatch(setUser(logUser));
       } else {
