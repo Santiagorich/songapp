@@ -133,6 +133,7 @@ export default function Home({ preload, props }) {
   useEffect(() => {
     if (!checked) {
       dispatch(setMobile(checkMobile()));
+      dispatch(setChecked(true));
     }
     if (window) {
       window.addEventListener("resize", () => {
@@ -329,10 +330,10 @@ export default function Home({ preload, props }) {
                 }`}
               >
                 <a
-                  className="relative"
                   target="_blank"
                   rel="noreferrer"
                   href="https://open-bootcamp.com/"
+                  aria-label="Open Bootcamp"
                 >
                   <div
                     className={`${

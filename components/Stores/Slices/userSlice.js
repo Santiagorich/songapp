@@ -15,7 +15,6 @@ const userSlice = createSlice({
     },
     setMobile: (state, action) => {
       state.isMobile = action.payload;
-      state.checked = true;
       return state;
     },
     setLastMsg: (state, action) => {
