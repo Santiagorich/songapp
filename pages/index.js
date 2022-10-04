@@ -21,9 +21,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { set, ref, remove } from "firebase/database";
 import VolumeInput from "../components/VolumeInput/VolumeInput";
 import { useBeforeunload } from "react-beforeunload";
-import Image from "next/image";
-import { paths } from "../constants/paths";
-import HackathonPromotion from "../components/HackathonPromotion";
+// import Image from "next/image";
+// import { paths } from "../constants/paths";
+// import HackathonPromotion from "../components/HackathonPromotion";
 
 //Options for caching:
 //Save to S3 After processing (I don't want to pay a penny)
