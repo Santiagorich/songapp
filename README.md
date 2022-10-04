@@ -30,9 +30,6 @@ NextJS,React,TailwindCSS and Vercel for hosting
 2. Run it
 `npm run dev`
 
-# Bonus
-
-Scroll to the bottom and you will find some great courses for free in Spanish!
 
 # Removed
 
