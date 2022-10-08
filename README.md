@@ -22,6 +22,8 @@ NextJS,React,TailwindCSS and Vercel for hosting
 
 -Firebase Real Time Database for the chat and for the online user list
 
+-PWA
+
 # How to use 
 
 1. Clone it
