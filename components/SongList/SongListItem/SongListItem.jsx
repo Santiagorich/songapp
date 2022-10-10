@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function SongListItem({ song, playSong, pauseSong, currentlyPlaying }) {
-const isCurrentSong = currentlyPlaying && currentlyPlaying.src == song.song;
+  const isCurrentSong = currentlyPlaying && currentlyPlaying.src == song.song;
   const [ytLink, setYtLink] = useState(
     `https://music.youtube.com/search?q=${encodeURI(
       song.title + " - " + song.artist
@@ -12,7 +12,9 @@ const isCurrentSong = currentlyPlaying && currentlyPlaying.src == song.song;
   const mobile = useSelector((state) => state.userSlice.isMobile);
   return (
     <div // I rather use the same var for mobile everywhere than set them with tailwind's breakpoints
-      className={`w-full px-2 h-16 relative overflow-hidden ${isCurrentSong && `scale-105 bg-gray-color-light shadow-lg`} transition transform duration-200 ease-out cursor-pointer group`}
+      className={`w-full px-2 h-16 relative overflow-hidden ${
+        isCurrentSong && `scale-105 bg-gray-color-light shadow-lg`
+      } transition transform duration-200 ease-out cursor-pointer group`}
       onClick={(e) => {
         if (isCurrentSong) {
           pauseSong();
@@ -29,31 +31,18 @@ const isCurrentSong = currentlyPlaying && currentlyPlaying.src == song.song;
           </span>
         </div>
 
-        <div className="flex flex-col w-full relative">
+        <div className="flex flex-col w-36 relative  ">
           <span
-            className={`text-white text-xl font-semibold whitespace-nowrap overflow-hidden overflow-ellipsis w-36 z-10`}
+            className={`text-white text-xl font-semibold whitespace-nowrap overflow-hidden overflow-ellipsis  z-10`}
           >
             {song.title}
           </span>
-          <span className=" text-gray-500 z-10 whitespace-nowrap overflow-hidden overflow-ellipsis">{song.artist}</span>
+          <span className=" text-gray-500 z-10 whitespace-nowrap overflow-hidden overflow-ellipsis">
+            {song.artist}
+          </span>
         </div>
-        <div className=" w-4 h-4 text-white flex z-20">
-          {isCurrentSong && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-4 h-4"
-            >
-              <path
-                fillRule="evenodd"
-                d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z"
-                clipRule="evenodd"
-              />
-            </svg>
-          )}
-        </div>
-        <button
+       
+        <button className="ml-auto"
           onClick={(e) => {
             e.stopPropagation();
             pauseSong();
@@ -97,6 +86,22 @@ const isCurrentSong = currentlyPlaying && currentlyPlaying.src == song.song;
             </svg>
           </div>
         </button>
+        <div className=" w-8 h-8 text-white flex z-20">
+          {isCurrentSong && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-8 h-8"
+            >
+              <path
+                fillRule="evenodd"
+                d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z"
+                clipRule="evenodd"
+              />
+            </svg>
+          )}
+        </div>
       </div>
     </div>
   );
