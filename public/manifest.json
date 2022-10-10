@@ -1,5 +1,5 @@
 {
-    "theme_color": "#ef4444",
+    "theme_color": "#030303",
     "background_color": "#030303",
     "display": "standalone",
     "scope": "/",
@@ -7,8 +7,7 @@
     "name": "Top 100 Song App",
     "short_name": "Song App",
     "description": "See what songs are popular right now!",
-    "icons": [
-        {
+    "icons": [{
             "src": "/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
