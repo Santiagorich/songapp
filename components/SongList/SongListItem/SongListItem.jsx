@@ -9,6 +9,13 @@ function SongListItem({ song, playSong, pauseSong, currentlyPlaying }) {
       song.title + " - " + song.artist
     )}`
   );
+  useEffect(() => {
+    fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
+      .then((response) => response.text())
+      .then((data) => {
+        setYtLink(`https://music.youtube.com/watch?v=${data}`);
+      });
+  }, [song]);
   const mobile = useSelector((state) => state.userSlice.isMobile);
   return (
     <div // I rather use the same var for mobile everywhere than set them with tailwind's breakpoints
@@ -41,23 +48,13 @@ function SongListItem({ song, playSong, pauseSong, currentlyPlaying }) {
             {song.artist}
           </span>
         </div>
-       
-        <button className="ml-auto"
+
+        <button
+          className="ml-auto"
           onClick={(e) => {
             e.stopPropagation();
             pauseSong();
-            fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
-              .then((response) => response.text())
-              .then((data) => {
-                window.open(
-                  "https://music.youtube.com/watch?v=" + data,
-                  "_blank",
-                  "noopener,noreferrer"
-                );
-              })
-              .catch((err) => {
-                window.open(ytLink, "_blank", "noopener,noreferrer");
-              });
+            window.open(ytLink, "_blank", "noopener,noreferrer");
           }}
           aria-label={song.title + " - " + song.artist}
         >
