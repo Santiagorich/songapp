@@ -85,12 +85,14 @@ export default function Home({ preload, props }) {
   const [volume, setVolume] = useState(1);
   const isMobile = useSelector((state) => state.userSlice.isMobile);
   const playSong = (song) => {
-    const audio = new Audio(song);
+    console.log("play", song);
+    const audio = new Audio(song.song);
     audio.play();
     audio.volume = volume;
     setCurrentlyPlaying({
-      src: song,
+      src: song.song,
       audio: audio,
+      number: song.number,
     });
   };
 

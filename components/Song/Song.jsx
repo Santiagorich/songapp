@@ -28,12 +28,11 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
     <div // I rather use the same var for mobile everywhere than set them with tailwind's breakpoints
       className={`rounded-2xl w-72 h-72 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group`}
       onClick={(e) => {
-        let audio = song.song;
         if (isCurrentSong) {
           pauseSong();
         } else {
           pauseSong();
-          playSong(audio);
+          playSong(song);
         }
       }}
     >

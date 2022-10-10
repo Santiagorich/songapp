@@ -14,12 +14,11 @@ const isCurrentSong = currentlyPlaying && currentlyPlaying.src == song.song;
     <div // I rather use the same var for mobile everywhere than set them with tailwind's breakpoints
       className={`w-full px-2 h-16 relative overflow-hidden ${isCurrentSong && `scale-105 bg-gray-color-light shadow-lg`} transition transform duration-200 ease-out cursor-pointer group`}
       onClick={(e) => {
-        let audio = song.song;
         if (isCurrentSong) {
           pauseSong();
         } else {
           pauseSong();
-          playSong(audio);
+          playSong(song);
         }
       }}
     >
