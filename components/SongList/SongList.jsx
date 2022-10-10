@@ -11,7 +11,7 @@ function SongList({ songs, currentlyPlaying, playSong, pauseSong }) {
   const mobile = useSelector((state) => state.userSlice.isMobile);
   SwiperCore.use([Lazy, Virtual, Navigation, Pagination]);
   return (
-    <div className=" h-48 overflow-y-auto px-2">
+    <div className=" h-48 overflow-y-auto overflow-x-hidden px-2">
       {songs.map((song, index) => (
         <SongListItem
           mobile={mobile}
