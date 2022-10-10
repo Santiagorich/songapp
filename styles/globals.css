@@ -36,6 +36,10 @@ body {
     mask-image: linear-gradient( to bottom, black calc(100% - 100px), transparent 100%);
 }
 
+.bbhalf {
+    border-bottom: 0.125px solid #ffffff;
+}
+
 * {
     scrollbar-width: auto;
     scrollbar-color: rgba(255, 255, 255, 0.2) transparent;

@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { set, ref, remove } from "firebase/database";
 import VolumeInput from "../components/VolumeInput/VolumeInput";
 import { useBeforeunload } from "react-beforeunload";
+import SongList from "../components/SongList/SongList";
 // import Image from "next/image";
 // import { paths } from "../constants/paths";
 // import HackathonPromotion from "../components/HackathonPromotion";
@@ -187,7 +188,7 @@ export default function Home({ preload, props }) {
       </Head>
       <Header signInWithGoogle={signInWithGoogle} logout={logout}></Header>
 
-      <div className="flex flex-col gap-4 mx-4 h-screen mb-10">
+      <div className={`flex flex-col gap-4 mx-4 ${isMobile?`h-fit`:`h-screen mb-10`} mt-4`}>
         <div
           className={`flex flex-row flex-shrink-0 py-2 overflow-hidden whitespace-nowrap relative ${
             isMobile ? `` : `fader`
@@ -222,7 +223,7 @@ export default function Home({ preload, props }) {
         </div>
 
         <div className="flex flex-col gap-6">
-          <div
+          {!isMobile && <div
             className={`flex flex-row mx-12 ${
               isMobile ? `justify-center` : `justify-between`
             }`}
@@ -238,9 +239,8 @@ export default function Home({ preload, props }) {
                 currentlyPlaying={currentlyPlaying}
               ></VolumeInput>
             )}
-          </div>
+          </div>}
           <SongSwiper
-            mobile={isMobile}
             playSong={playSong}
             pauseSong={pauseSong}
             currentlyPlaying={currentlyPlaying}
@@ -255,6 +255,14 @@ export default function Home({ preload, props }) {
                 currentlyPlaying={currentlyPlaying}
               ></VolumeInput>
             </div>
+          )}
+          {isMobile && (
+            <SongList
+              playSong={playSong}
+              pauseSong={pauseSong}
+              currentlyPlaying={currentlyPlaying}
+              songs={currentCategory.songs}
+            ></SongList>
           )}
         </div>
       </div>

@@ -1,17 +1,24 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Triangle } from "react-loader-spinner";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function Song({ song, playSong, pauseSong, currentlyPlaying }) {
+  const isCurrentSong = currentlyPlaying && currentlyPlaying.src == song.song;
   const [ytLink, setYtLink] = useState(
     `https://music.youtube.com/search?q=${encodeURI(
       song.title + " - " + song.artist
     )}`
   );
+
   const mobile = useSelector((state) => state.userSlice.isMobile);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
+      .then((response) => response.text())
+      .then((data) => {
+        setYtLink(`https://music.youtube.com/watch?v=${data}`);
+      });
     return () => {
       setLoading(true);
     };
@@ -22,7 +29,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       className={`rounded-2xl w-72 h-72 relative overflow-hidden hover:scale-105 hover:shadow-lg transition transform duration-200 ease-out cursor-pointer group`}
       onClick={(e) => {
         let audio = song.song;
-        if (currentlyPlaying && currentlyPlaying.src == audio) {
+        if (isCurrentSong) {
           pauseSong();
         } else {
           pauseSong();
@@ -78,7 +85,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
       ></Image>
 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center text-white flex z-20">
-        {currentlyPlaying && currentlyPlaying.src == song.song ? (
+        {isCurrentSong ? (
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +128,9 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
           loading="eager"
         ></Image>
 
-        <span className={`text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10`}>
+        <span
+          className={`text-white text-2xl whitespace-nowrap overflow-hidden overflow-ellipsis w-42 z-10`}
+        >
           {song.number}. {song.title}
         </span>
         <span className="text-white z-10">{song.artist}</span>
@@ -130,18 +139,7 @@ function Song({ song, playSong, pauseSong, currentlyPlaying }) {
         onClick={(e) => {
           e.stopPropagation();
           pauseSong();
-          fetch("/api/ytmusic?query=" + song.title + " " + song.artist)
-            .then((response) => response.text())
-            .then((data) => {
-              window.open(
-                "https://music.youtube.com/watch?v=" + data,
-                "_blank",
-                "noopener,noreferrer"
-              );
-            })
-            .catch((err) => {
-              window.open(ytLink, "_blank", "noopener,noreferrer");
-            });
+          window.open(ytLink, "_blank", "noopener,noreferrer");
         }}
         className="absolute bottom-3 left-3"
         aria-label={song.title + " - " + song.artist}

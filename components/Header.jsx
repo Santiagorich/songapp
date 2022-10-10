@@ -14,7 +14,7 @@ function Header({ signInWithGoogle,logout }) {
             <Link href="/">
               <a>
                 <span className="sr-only">Top100</span>
-                <div className="h-8 w-auto sm:h-10 ">
+                <div className=" w-auto ">
                   <svg
                     className="fill-red-500 w-12 h-12"
                     xmlns="http://www.w3.org/2000/svg"
