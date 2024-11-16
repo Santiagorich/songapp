@@ -14,7 +14,7 @@ NextJS,React,TailwindCSS and Vercel for hosting
 
 # The best part
 
--SSR + Lazy loading techniques to improve Lighthouse score, UX and accesibility (Aprox 100% score)
+-ISR + Lazy loading techniques to improve Lighthouse score, UX and accesibility (Aprox 100% score)
 
 -Image Optimizer
 
